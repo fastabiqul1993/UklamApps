@@ -2,17 +2,22 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import Splash from '../Screens/Splash';
-// import Tabs from '../Screens/Main/Tabs';
-// import Login from '../Screens/Auth/Login';
-// import Register from '../Screens/Auth/Register';
-// import Profile from '../Components/Profile/ProfileAnother';
-// import MyProfile from '../Components/Profile/myProfile';
-// import Chat from '../Screens/Main/Chats';
-// // import Maps from '../Components/Maps/Map';
+import Profile from '../Screens/AppScreens/Profile';
+import Booking from '../Screens/AppScreens/Booking';
+import EditProfile from '../Components/Profile/EditProfile';
+import Wishlist from '../Components/Profile/Wishlist';
+import Balance from '../Components/Profile/Balance';
+import PrivacyPolicy from '../Components/Profile/PrivacyPolicy';
 
-const InitialNavigation = createSwitchNavigator({
-  splashScreen: Splash,
-  //   AppNavigator: {screen: AppNavigator},
+// const BookingStack = createStackNavigator({
+//   Booking,
+// });
+const ProfileStack = createStackNavigator({
+  ProfileScreen: {screen: Profile},
+  EditScreen: {screen: EditProfile},
+  WishlistScreen: {screen: Wishlist},
+  BalanceScreen: {screen: Balance},
+  PrivacyPolicyScreen: {screen: PrivacyPolicy},
 });
 
 // const AuthStack = createStackNavigator(
@@ -31,36 +36,36 @@ const InitialNavigation = createSwitchNavigator({
 //   },
 // );
 
-// const AppStack = createStackNavigator(
-//   {
-//     HomeScreen: {
-//       screen: Tabs,
-//     },
-//     ProfileScreen: {
-//       screen: Profile,
-//     },
-//     MyProfileScreen: {
-//       screen: MyProfile,
-//     },
-//     chatScreen: {
-//       screen: Chat,
-//     },
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       header: null,
-//     },
-//   },
-// );
+const AppStack = createStackNavigator(
+  {
+    // HomeScreen: {
+    //   screen: Tabs,
+    // },
+    Profile: {
+      screen: ProfileStack,
+    },
+    // MyProfileScreen: {
+    //   screen: MyProfile,
+    // },
+    BookingScreen: {
+      screen: Booking,
+    },
+  },
+  {
+    defaultNavigationOptions: {
+      header: null,
+    },
+  },
+);
 
-// const AppNavigator = createSwitchNavigator(
-//   {
-//     Auth: AuthStack,
-//     App: AppStack,
-//   },
-//   {
-//     initialRouteName: 'Auth',
-//   },
-// );
+const AppNavigator = createSwitchNavigator(
+  {
+    // Auth: AuthStack,
+    App: AppStack,
+  },
+  {
+    // initialRouteName: 'Auth',
+  },
+);
 
-export default AppContainer = createAppContainer(InitialNavigation);
+export default AppContainer = createAppContainer(AppNavigator);
