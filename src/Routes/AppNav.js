@@ -1,4 +1,8 @@
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {
+  createAppContainer,
+  createSwitchNavigator,
+  TabNavigator,
+} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import Splash from '../Screens/Splash';
@@ -15,21 +19,24 @@ import Wishlist from '../Components/Profile/Wishlist';
 import Balance from '../Components/Profile/Balance';
 import PrivacyPolicy from '../Components/Profile/PrivacyPolicy';
 
-
 // const BookingStack = createStackNavigator({
 //   Booking,
 // });
-const ProfileStack = createStackNavigator({
-  ProfileScreen: {screen: Profile},
-  EditScreen: {screen: EditProfile},
-  WishlistScreen: {screen: Wishlist},
-  BalanceScreen: {screen: Balance},
-  PrivacyPolicyScreen: {screen: PrivacyPolicy},
-},{
+const ProfileStack = createStackNavigator(
+  {
+    ProfileScreen: {screen: Profile},
+    EditScreen: {screen: EditProfile},
+    WishlistScreen: {screen: Wishlist},
+    BalanceScreen: {screen: Balance},
+    PrivacyPolicyScreen: {screen: PrivacyPolicy},
+  },
+  {
+    initialRouteName: 'Profile',
     defaultNavigationOptions: {
       header: null,
-    },);
-
+    },
+  },
+);
 
 const AuthStack = createStackNavigator(
   {
@@ -47,11 +54,16 @@ const AuthStack = createStackNavigator(
   },
 );
 
-
-const AppStack = createStackNavigator(
+const AppStack = TabNavigator(
   {
     HomeScreen: {
       screen: Home,
+    },
+    ProfileScreen: {
+      screen: ProfileStack,
+    },
+    BookingScreen: {
+      screen: Booking,
     },
     // ProfileScreen: {
     //   screen: Profile,
@@ -62,13 +74,6 @@ const AppStack = createStackNavigator(
     // chatScreen: {
     //   screen: Chat,
     // },
-    BookingScreen: {
-      screen: Booking,
-    },
-      Profile: {
-      screen: ProfileStack,
-    },
-    
   },
   {
     defaultNavigationOptions: {
@@ -77,14 +82,13 @@ const AppStack = createStackNavigator(
   },
 );
 
-
 const AppNavigator = createSwitchNavigator(
   {
     Auth: AuthStack,
     App: AppStack,
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: 'App',
   },
 );
 

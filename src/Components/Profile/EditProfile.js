@@ -16,7 +16,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-const EditProfile = () => {
+const EditProfile = props => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />

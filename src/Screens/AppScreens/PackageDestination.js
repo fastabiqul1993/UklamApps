@@ -15,26 +15,23 @@ import Carousel from '../../Components/Carousel/Destination';
 import Logo from '../../Assets/img/dest1.jpg';
 
 class myPackage extends Component {
+  // constructor() {
+  //   super();
+  //   this.state = {};
+  // }
 
-  constructor() {
-    super()
-    this.state = {
-      
-    }
-  }
-
-  const Item = ({ title }) => {
-    return (
-      <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-      </View>
-    );
-  }
+  // Item = ({title}) => {
+  //   return (
+  //     <View style={styles.item}>
+  //       <Text style={styles.title}>{title}</Text>
+  //     </View>
+  //   );
+  // };
 
   render() {
     return (
       <View>
-        <ImageBackground
+        {/* <ImageBackground
           source={Logo}
           style={{
             width: '100%',
@@ -65,7 +62,7 @@ class myPackage extends Component {
               keyExtractor={item => item.id}
             />
           </Content>
-        </Container>
+        </Container> */}
       </View>
     );
   }
