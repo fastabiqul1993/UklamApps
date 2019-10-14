@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, StatusBar} from 'react-native';
 
-import splash from '../../src/Assets/splash.png';
+import splash from '../../src/Assets/splash3.png';
 
 class mySplash extends Component {
   splashLoading = async () => {
@@ -23,6 +23,7 @@ class mySplash extends Component {
   render() {
     return (
       <>
+        <StatusBar translucent backgroundColor={'transparent'} />
         <View style={Styles.container}>
           <Image source={splash} style={Styles.splash}></Image>
         </View>
