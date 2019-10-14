@@ -31,8 +31,7 @@ class myPackage extends Component {
           style={{
             width: '100%',
             height: 200,
-            borderBottomLeftRadius: 50,
-            borderBottomRightRadius: 50,
+            backgroundColor: '#f9791b',
           }}>
           <Header transparent>
             <Left>
@@ -52,7 +51,7 @@ class myPackage extends Component {
             style={{
               backgroundColor: '#000',
               width: '100%',
-              height: '30%',
+              height: '40%',
               position: 'absolute',
               opacity: 0.4,
               bottom: 0,
@@ -61,12 +60,12 @@ class myPackage extends Component {
             }}>
             <Text></Text>
           </View>
-          <View style={{position: 'absolute', bottom: 25}}>
+          <View style={{position: 'absolute', bottom: 35}}>
             <Text
               style={{
                 paddingHorizontal: 10,
                 paddingVertical: 1,
-                fontSize: 25,
+                fontSize: 30,
                 color: 'white',
                 fontWeight: 'bold',
                 // backgroundColor: '#2fa31a',
@@ -74,23 +73,29 @@ class myPackage extends Component {
               Bromo
             </Text>
           </View>
-          <View style={{position: 'absolute', bottom: 6, marginLeft: 25}}>
+          <View style={{position: 'absolute', bottom: 14, marginLeft: 27}}>
             <Text
               style={{
                 paddingHorizontal: 10,
                 paddingVertical: 1,
-                fontSize: 16,
+                fontSize: 15,
                 color: 'white',
-                fontWeight: 'bold',
                 // backgroundColor: '#2fa31a',
               }}>
-              East Java
+              East Java, Indonesia
             </Text>
           </View>
-          <View style={{position: 'absolute', bottom: 2}}>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 15,
+              marginLeft: 10,
+            }}>
             <Icon
-              name="flame"
+              type="FontAwesome"
+              name="map-marker"
               style={{
+                fontSize: 20,
                 paddingHorizontal: 10,
                 paddingVertical: 1,
                 color: 'white',
@@ -98,12 +103,13 @@ class myPackage extends Component {
             />
           </View>
         </ImageBackground>
-        <ScrollView>
-          <View style={{marginBottom: 200, backgroundColor: '#f7f7f7'}}>
-            <FlatList
-              data={DATA}
-              renderItem={({item}) => (
-                <Fragment>
+        <View style={{height: '69%', backgroundColor: '#f7f7f7'}}>
+          <FlatList
+            data={DATA}
+            renderItem={({item}) => (
+              <Fragment>
+                <ScrollView>
+                  {/* <View style={{marginBottom: 200, backgroundColor: '#f7f7f7'}}> */}
                   <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => {
@@ -117,6 +123,18 @@ class myPackage extends Component {
                           }}>
                           <View style={styles.image}>
                             <Image source={Logo} style={styles.image} />
+                            <View
+                              style={{
+                                backgroundColor: '#000',
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                opacity: 0.2,
+
+                                // borderRadius: 50,
+                              }}>
+                              <Text></Text>
+                            </View>
                           </View>
                         </Col>
                         <Col>
@@ -132,12 +150,13 @@ class myPackage extends Component {
                       </Grid>
                     </View>
                   </TouchableOpacity>
-                </Fragment>
-              )}
-              keyExtractor={item => item.id}
-            />
-          </View>
-        </ScrollView>
+                  {/* </View> */}
+                </ScrollView>
+              </Fragment>
+            )}
+            keyExtractor={item => item.id}
+          />
+        </View>
       </View>
     );
   }
@@ -165,6 +184,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 120,
     height: 100,
+    backgroundColor: '#f9791b',
   },
   title: {
     fontSize: 32,
