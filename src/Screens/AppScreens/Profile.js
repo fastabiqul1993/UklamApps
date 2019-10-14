@@ -23,12 +23,36 @@ import {
   Toast,
 } from 'native-base';
 import FooterTab from '../../Components/Navbars/Footer';
+// import AsyncStorage from '@react-native-community/async-storage';
+// import {connect} from 'react-redux';
+// import {getUser} from '../../Publics/Redux/Actions/user';
 // import {withNavigation} from 'react-navigation';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+    state = {
+      user: {
+        name: null,
+        email: 'anton@gmail.com',
+        phone: null,
+        UserId: null,
+        token: null,
+      },
+      newname: '',
+      newemail: '',
+    };
   }
+  // componentDidMount = async () => {
+  // await AsyncStorage.setItem('email', this.state.user.email.toString());
+  // await AsyncStorage.getItem('email')
+  // .then(email => {
+  // await this.props.dispatch(getUser('anton@gmail.com'));
+  // await this.setState({user: this.props.user});
+  // });
+  // await AsyncStorage.setItem('name', this.props.user.profile.name);
+  // console.log(this.props.user);
+  // };
   render() {
     return (
       <SafeAreaView style={{flex: 1, marginHorizontal: 10}}>
@@ -75,7 +99,7 @@ class Profile extends Component {
               marginLeft: 10,
             }}>
             <Text style={{fontSize: 18}}>Nama User</Text>
-            <Text>Email</Text>
+            <Text>{this.state.user.email}</Text>
             <Text>Lokasi User</Text>
           </View>
         </View>
@@ -151,6 +175,13 @@ class Profile extends Component {
     );
   }
 }
+
+// const mapStateToProps = state => {
+//   return {
+//     user: state.user.user,
+//   };
+// };
+
 export default Profile;
 
 const styles = StyleSheet.create({

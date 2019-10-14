@@ -54,7 +54,7 @@ const AuthStack = createStackNavigator(
   },
 );
 
-const AppStack = TabNavigator(
+const AppStack = createStackNavigator(
   {
     HomeScreen: {
       screen: Home,
