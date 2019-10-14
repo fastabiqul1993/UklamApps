@@ -2,11 +2,34 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import Splash from '../Screens/Splash';
+
 import SignIn from '../Screens/AuthScreens/SignIn';
 import SignUp from '../Screens/AuthScreens/SignUp';
 import Home from '../Screens/AppScreens/Home';
 import Destination from '../Screens/AppScreens/Destination';
 import PackageDestination from '../Screens/AppScreens/PackageDestination';
+import Profile from '../Screens/AppScreens/Profile';
+import Booking from '../Screens/AppScreens/Booking';
+import EditProfile from '../Components/Profile/EditProfile';
+import Wishlist from '../Components/Profile/Wishlist';
+import Balance from '../Components/Profile/Balance';
+import PrivacyPolicy from '../Components/Profile/PrivacyPolicy';
+
+
+// const BookingStack = createStackNavigator({
+//   Booking,
+// });
+const ProfileStack = createStackNavigator({
+  ProfileScreen: {screen: Profile},
+  EditScreen: {screen: EditProfile},
+  WishlistScreen: {screen: Wishlist},
+  BalanceScreen: {screen: Balance},
+  PrivacyPolicyScreen: {screen: PrivacyPolicy},
+},{
+    defaultNavigationOptions: {
+      header: null,
+    },);
+
 
 const AuthStack = createStackNavigator(
   {
@@ -24,6 +47,7 @@ const AuthStack = createStackNavigator(
   },
 );
 
+
 const AppStack = createStackNavigator(
   {
     HomeScreen: {
@@ -38,6 +62,13 @@ const AppStack = createStackNavigator(
     // chatScreen: {
     //   screen: Chat,
     // },
+    BookingScreen: {
+      screen: Booking,
+    },
+      Profile: {
+      screen: ProfileStack,
+    },
+    
   },
   {
     defaultNavigationOptions: {
@@ -45,6 +76,7 @@ const AppStack = createStackNavigator(
     },
   },
 );
+
 
 const AppNavigator = createSwitchNavigator(
   {
@@ -61,4 +93,4 @@ const InitialNavigation = createSwitchNavigator({
   AppNavigator: {screen: AppNavigator},
 });
 
-export default AppContainer = createAppContainer(InitialNavigation);
+export default AppContainer = createAppContainer(AppNavigator);
