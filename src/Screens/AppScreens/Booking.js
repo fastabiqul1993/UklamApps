@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
+import FooterTab from '../../Components/Navbars/Footer';
 
 class Booking extends Component {
   render() {
@@ -68,6 +69,7 @@ class Booking extends Component {
             <Text>Chat</Text>
           </View>
         </View>
+        <FooterTab />
       </SafeAreaView>
     );
   }
