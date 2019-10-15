@@ -1,5 +1,12 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import React, {Component, Fragment} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  StatusBar,
+} from 'react-native';
 import {
   Container,
   Content,
@@ -12,7 +19,9 @@ import {
 } from 'native-base';
 import {Col, Row} from 'react-native-easy-grid';
 import AsyncStorage from '@react-native-community/async-storage';
-import Logo from '../../Assets/brands/logo.png';
+
+import Logo from '../../Assets/brands/icon1-01.png';
+import Bg from '../../Assets/img/bg4.jpg';
 
 export default class Signin extends Component {
   constructor(props) {
@@ -87,64 +96,92 @@ export default class Signin extends Component {
 
   render() {
     return (
-      <Container style={styles.container}>
-        <Content style={styles.content} showsVerticalScrollIndicator={false}>
-          <View style={styles.title}>
-            <Image source={Logo} style={styles.image} />
-          </View>
-          <Form>
-            <Item
-              floatingLabel
-              style={{height: 60, borderBottomColor: '#fb724a'}}>
-              <Label>Username</Label>
-              <Input
-                maxLength={15}
-                onChangeText={text => this.handleChange('username', text)}
-              />
-            </Item>
-
-            <Item
-              floatingLabel
-              style={{height: 60, borderBottomColor: '#fb724a'}}>
-              <Label>Email</Label>
-              <Input
-                keyboardType="email-address"
-                autoCompleteType="email"
-                onChangeText={text => this.handleChange('email', text)}
-              />
-            </Item>
-            <Item
-              floatingLabel
-              style={{height: 60, borderBottomColor: '#fb724a'}}>
-              <Label>Password</Label>
-              <Input
-                secureTextEntry={true}
-                maxLength={16}
-                onChangeText={text => this.handleChange('password', text)}
-              />
-            </Item>
-            <Button
-              full
-              dark
-              rounded
-              style={styles.btnSignin}
-              onPress={this.handleSubmit}>
-              <Text style={styles.textSignin}>Sign up</Text>
-            </Button>
-          </Form>
-          <Row style={styles.foot}>
-            <Col>
-              <Text
-                style={styles.btnForgot}
-                onPress={() => {
-                  this.props.navigation.navigate('SigninScreen');
-                }}>
-                Sign In
-              </Text>
-            </Col>
-          </Row>
-        </Content>
-      </Container>
+      <Fragment>
+        <StatusBar translucent backgroundColor={'transparent'} />
+        <Container>
+          <Content>
+            <ImageBackground
+              source={Bg}
+              style={{width: '100%', height: '100%'}}>
+              {/* <Container style={styles.container}>
+            <Content showsVerticalScrollIndicator={false}> */}
+              <View style={{marginHorizontal: 20}}>
+                <View style={styles.title}>
+                  <Image source={Logo} style={styles.image} />
+                </View>
+                <Form>
+                  <Item
+                    floatingLabel
+                    style={{height: 60, borderBottomColor: '#fb724a'}}>
+                    <Label style={{color: 'white'}}>Username</Label>
+                    <Input
+                      style={{color: 'white'}}
+                      onChangeText={text => this.handleChange('username', text)}
+                    />
+                  </Item>
+                  <Item
+                    floatingLabel
+                    style={{height: 60, borderBottomColor: '#fb724a'}}>
+                    <Label style={{color: 'white'}}>Email</Label>
+                    <Input
+                      style={{color: 'white'}}
+                      keyboardType="email-address"
+                      autoCompleteType="email"
+                      onChangeText={text => this.handleChange('email', text)}
+                    />
+                  </Item>
+                  <Item
+                    floatingLabel
+                    style={{
+                      height: 60,
+                      borderBottomColor: '#fb724a',
+                    }}>
+                    <Label style={{color: 'white'}}>Password</Label>
+                    <Input
+                      style={{color: 'white'}}
+                      secureTextEntry={true}
+                      onChangeText={text => this.handleChange('password', text)}
+                    />
+                  </Item>
+                  <Button
+                    full
+                    dark
+                    rounded
+                    style={styles.btnSignin}
+                    // onPress={() => {
+                    //   this.props.navigation.navigate('HomeScreen');
+                    // }}
+                  >
+                    <Text style={styles.textSignin}>Sign In</Text>
+                  </Button>
+                </Form>
+                <Row style={styles.foot}>
+                  <Col>
+                    <Text
+                      style={styles.btnForgot}
+                      onPress={() => {
+                        this.props.navigation.navigate('SigninScreen');
+                      }}>
+                      Sign In
+                    </Text>
+                  </Col>
+                  {/* <Col>
+                <Text
+                  style={styles.btnForgot}
+                  onPress={() => {
+                    this.props.navigation.navigate('HomeScreen');
+                  }}>
+                  as Guest...
+                </Text>
+              </Col> */}
+                </Row>
+                {/* </Content>
+          </Container> */}
+              </View>
+            </ImageBackground>
+          </Content>
+        </Container>
+      </Fragment>
     );
   }
 }
@@ -157,15 +194,15 @@ let btnSignup = {
 
 const styles = StyleSheet.create({
   image: {
-    width: 280,
-    height: 80,
+    width: '70%',
+    height: 200,
+    marginTop: 10,
     resizeMode: 'contain',
   },
   containerHead: {
     height: 0,
   },
   container: {
-    marginTop: 50,
     marginLeft: 20,
     marginRight: 35,
   },
@@ -183,13 +220,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   foot: {
-    marginTop: 60,
+    marginTop: 20,
     marginBottom: 50,
     marginLeft: 15,
-  },
-  toast: {
-    margin: 20,
-    borderRadius: 10,
   },
   btnSignup: {
     ...btnSignup,
@@ -197,5 +230,6 @@ const styles = StyleSheet.create({
   btnForgot: {
     ...btnSignup,
     textAlign: 'right',
+    color: 'white',
   },
 });
