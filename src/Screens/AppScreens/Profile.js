@@ -39,15 +39,12 @@ class Profile extends Component {
     };
   }
   componentDidMount = async () => {
-    await AsyncStorage.setItem('email', 'susi@gmail.com');
-    await AsyncStorage.getItem('email').then(email => {
-      this.props.dispatch(getUser(email));
-    });
-    await this.setState({
-      user: this.props.user,
-      profile: this.props.user.profile,
-    });
-    await console.log(this.state.profile);
+    await this.props.dispatch(getUser('susi@gmail.com')).then(
+      this.setState({
+        user: this.props.user,
+        profile: this.props.user.profile,
+      }),
+    );
   };
   render() {
     const {photo, balance} = this.state.user;

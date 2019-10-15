@@ -31,7 +31,7 @@ const ProfileStack = createStackNavigator(
     PrivacyPolicyScreen: {screen: PrivacyPolicy},
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: 'ProfileScreen',
     defaultNavigationOptions: {
       header: null,
     },
@@ -56,13 +56,12 @@ const AuthStack = createStackNavigator(
 
 const AppStack = createStackNavigator(
   {
-    ProfileScreen: {
-      screen: ProfileStack,
-    },
     HomeScreen: {
       screen: Home,
     },
-
+    ProfileScreen: {
+      screen: ProfileStack,
+    },
     BookingScreen: {
       screen: Booking,
     },

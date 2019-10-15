@@ -8,18 +8,12 @@ export const getUser = email => {
   };
 };
 
-export const patchUser = (email, data, token) => {
+export const patchUser = (email, data) => {
   return {
     type: 'PATCH_USER',
     payload: axios.patch(
       `http://54.235.224.136:5000/api/user/profile/?email=${email}`,
       data,
-      {
-        headers: {
-          header_key: 'PR0V1D3R',
-          token: token,
-        },
-      },
     ),
   };
 };
