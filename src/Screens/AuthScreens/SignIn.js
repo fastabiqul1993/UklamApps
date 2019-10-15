@@ -1,5 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import {StyleSheet, View, Text, Image, StatusBar} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  StatusBar,
+  ImageBackground,
+} from 'react-native';
 import {
   Container,
   Content,
@@ -13,7 +20,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import {Col, Row} from 'react-native-easy-grid';
 
-import Logo from '../../Assets/brands/logo.png';
+import Logo from '../../Assets/brands/icon1-01.png';
+import Bg from '../../Assets/img/bg.jpg';
 
 class SignIn extends Component {
   constructor(props) {
@@ -76,57 +84,67 @@ class SignIn extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar translucent />
-        <Container style={styles.container}>
-          <Content showsVerticalScrollIndicator={false}>
-            <View style={styles.title}>
-              <Image source={Logo} style={styles.image} />
-            </View>
-            <Form style={styles.formSignin}>
-              <Item
-                floatingLabel
-                style={{height: 60, borderBottomColor: '#fb724a'}}>
-                <Label>Email</Label>
-                <Input
-                  keyboardType="email-address"
-                  autoCompleteType="email"
-                  onChangeText={text => this.handleChange('email', text)}
-                />
-              </Item>
-              <Item
-                floatingLabel
-                style={{height: 60, borderBottomColor: '#fb724a'}}>
-                <Label>Password</Label>
-                <Input
-                  secureTextEntry={true}
-                  onChangeText={text => this.handleChange('password', text)}
-                />
-              </Item>
-              <Button
-                full
-                dark
-                rounded
-                style={styles.btnSignin}
-                onPress={() => {
-                  this.props.navigation.navigate('HomeScreen');
-                }}
-                // onPress={this.handleSubmit}
-              >
-                <Text style={styles.textSignin}>Sign In</Text>
-              </Button>
-            </Form>
-            <Row style={styles.foot}>
-              <Col>
-                <Text
-                  style={styles.btnForgot}
-                  //   onPress={() => {
-                  //     this.props.navigation.navigate('SignupScreen');
-                  //   }}
-                >
-                  Sign Up
-                </Text>
-              </Col>
-              {/* <Col>
+        <StatusBar translucent backgroundColor={'transparent'} />
+        <Container>
+          <Content>
+            <ImageBackground
+              source={Bg}
+              style={{width: '100%', height: '100%'}}>
+              {/* <Container style={styles.container}>
+            <Content showsVerticalScrollIndicator={false}> */}
+              <View style={{marginHorizontal: 20}}>
+                <View style={styles.title}>
+                  <Image source={Logo} style={styles.image} />
+                </View>
+                <Form>
+                  <Item
+                    floatingLabel
+                    style={{height: 60, borderBottomColor: '#fb724a'}}>
+                    <Label style={{color: 'white'}}>Email</Label>
+                    <Input
+                      style={{color: 'white'}}
+                      keyboardType="email-address"
+                      autoCompleteType="email"
+                      onChangeText={text => this.handleChange('email', text)}
+                    />
+                  </Item>
+                  <Item
+                    floatingLabel
+                    style={{
+                      height: 60,
+                      borderBottomColor: '#fb724a',
+                    }}>
+                    <Label style={{color: 'white'}}>Password</Label>
+                    <Input
+                      style={{color: 'white'}}
+                      secureTextEntry={true}
+                      onChangeText={text => this.handleChange('password', text)}
+                    />
+                  </Item>
+                  <Button
+                    full
+                    dark
+                    rounded
+                    style={styles.btnSignin}
+                    onPress={() => {
+                      this.props.navigation.navigate('HomeScreen');
+                    }}
+                    // onPress={this.handleSubmit}
+                  >
+                    <Text style={styles.textSignin}>Sign In</Text>
+                  </Button>
+                </Form>
+                <Row style={styles.foot}>
+                  <Col>
+                    <Text
+                      style={styles.btnForgot}
+                      onPress={() => {
+                        this.props.navigation.navigate('SignupScreen');
+                      }}>
+                      Sign Up
+                    </Text>
+                  </Col>
+                  {/* <Col>
                 <Text
                   style={styles.btnForgot}
                   onPress={() => {
@@ -135,7 +153,11 @@ class SignIn extends Component {
                   as Guest...
                 </Text>
               </Col> */}
-            </Row>
+                </Row>
+                {/* </Content>
+          </Container> */}
+              </View>
+            </ImageBackground>
           </Content>
         </Container>
       </Fragment>
@@ -189,5 +211,6 @@ const styles = StyleSheet.create({
   btnForgot: {
     ...btnSignup,
     textAlign: 'right',
+    color: 'white',
   },
 });
