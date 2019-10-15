@@ -17,17 +17,41 @@ const MainFooter = props => {
         <FooterTab style={{backgroundColor: '#FFF'}}>
           <Button
             vertical
-            onPress={() => props.navigation.navigate('HomeScreen')}>
+            onPress={() => props.navigation.navigate('HomeScreen')}
+            style={
+              props.navigation.state.routeName === 'HomeScreen' && {
+                backgroundColor: '#E5E7E9',
+              }
+            }>
             <Icon name="search" type="Feather" style={{color: '#fb724a'}} />
-            <Text style={{fontSize: 10, color: '#fb724a'}}>Explore</Text>
+            <Text
+              // style={
+              //   props.navigation.state.routeName === 'HomeScreen'
+              //     ? {textAlign: 'center', color: '#402366', fontSize: 15}
+              //     : {textAlign: 'center', fontSize: 13}
+              // }
+              style={{fontSize: 10, color: '#fb724a'}}>
+              Explore
+            </Text>
           </Button>
           <Button
+            style={
+              props.navigation.state.routeName === 'BookingScreen' && {
+                backgroundColor: '#E5E7E9',
+              }
+            }
             vertical
             onPress={() => props.navigation.navigate('BookingScreen')}>
             <Icon name="calendar" type="Feather" style={{color: '#fb724a'}} />
             <Text style={{fontSize: 10, color: '#fb724a'}}>Booking</Text>
           </Button>
-          <Button vertical>
+          <Button
+            vertical
+            style={
+              props.navigation.state.routeName === 'ChatScreen' && {
+                backgroundColor: '#E5E7E9',
+              }
+            }>
             <Icon
               active
               name="message"
@@ -37,6 +61,11 @@ const MainFooter = props => {
             <Text style={{fontSize: 10, color: '#fb724a'}}>Chat</Text>
           </Button>
           <Button
+            style={
+              props.navigation.state.routeName === 'ProfileScreen' && {
+                backgroundColor: '#E5E7E9',
+              }
+            }
             vertical
             onPress={() => props.navigation.navigate('ProfileScreen')}>
             <Icon name="person" style={{color: '#fb724a'}} />
@@ -48,58 +77,3 @@ const MainFooter = props => {
   );
 };
 export default withNavigation(MainFooter);
-
-// const Footer = props => {
-//   return (
-//     <SafeAreaView
-//       style={{
-//         marginTop: -10,
-//         height: 55,
-//         position: 'relative',
-//         flexDirection: 'row',
-//       }}>
-//       <TouchableOpacity
-//         activeOpacity={0.9}
-//         style={{flex: 1}}
-//         onPress={() => props.navigation.navigate('HomeScreen')}>
-//         <Text
-//           style={
-//             props.navigation.state.routeName === 'Home'
-//               ? {textAlign: 'center', color: '#fb724a', fontSize: 15}
-//               : {textAlign: 'center', fontSize: 13}
-//           }>
-//           Beranda
-//         </Text>
-//       </TouchableOpacity>
-
-//       <TouchableOpacity
-//         activeOpacity={0.9}
-//         style={{flex: 1}}
-//         onPress={() => props.navigation.navigate('BookingScreen')}>
-//         <Text
-//           style={
-//             props.navigation.state.routeName === 'Booking'
-//               ? {textAlign: 'center', color: '#fb724a', fontSize: 15}
-//               : {textAlign: 'center', fontSize: 13}
-//           }>
-//           Beranda
-//         </Text>
-//       </TouchableOpacity>
-
-//       <TouchableOpacity
-//         activeOpacity={0.9}
-//         style={{flex: 1}}
-//         onPress={() => props.navigation.navigate('ProfileScreen')}>
-//         <Text
-//           style={
-//             props.navigation.state.routeName === 'Profile'
-//               ? {textAlign: 'center', color: '#fb724a', fontSize: 15}
-//               : {textAlign: 'center', fontSize: 13}
-//           }>
-//           Beranda
-//         </Text>
-//       </TouchableOpacity>
-//     </SafeAreaView>
-//   );
-// };
-// export default Footer
