@@ -16,6 +16,7 @@ class myDestination extends Component {
             width: '100%',
             height: '100%',
             resizeMode: 'stretch',
+            backgroundColor: '#f9791b',
           }}>
           <Header style={{marginTop: 10}} transparent>
             <Left>
