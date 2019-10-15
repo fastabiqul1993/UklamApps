@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, SafeAreaView, StatusBar} from 'react-native';
+import {View, Text, SafeAreaView, StatusBar, Image} from 'react-native';
 import {Icon} from 'native-base';
 import MainFooter from '../Navbars/Footer';
 const Wishlist = () => {
@@ -16,8 +16,12 @@ const Wishlist = () => {
           }}>
           Wishlist
         </Text>
-
-        <View
+        <Image
+          source={require('../../Assets/Background/underconst.jpg')}
+          resizeMode="stretch"
+          style={{width: '100%', height: '100%'}}
+        />
+        {/* <View
           style={{
             flexDirection: 'row',
             borderRadius: 8,
@@ -51,9 +55,9 @@ const Wishlist = () => {
               name="message"
               style={{color: '#fb724a'}}
             />
-            {/* <Text>Chat</Text> */}
+             <Text>Chat</Text> 
           </View>
-        </View>
+        </View>*/}
       </View>
       <MainFooter />
     </SafeAreaView>

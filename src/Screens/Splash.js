@@ -16,7 +16,7 @@ class mySplash extends Component {
     const data = await this.splashLoading();
 
     if (data !== null) {
-      this.props.navigation.navigate('Auth');
+      this.props.navigation.navigate('AppNavigator');
     }
   };
 
