@@ -23,37 +23,35 @@ import {
   Toast,
 } from 'native-base';
 import FooterTab from '../../Components/Navbars/Footer';
-// import AsyncStorage from '@react-native-community/async-storage';
-// import {connect} from 'react-redux';
-// import {getUser} from '../../Publics/Redux/Actions/user';
-// import {withNavigation} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
+import {connect} from 'react-redux';
+import {getUser} from '../../Publics/Redux/Actions/user';
+import {withNavigation} from 'react-navigation';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    state = {
-      user: {
-        name: null,
-        email: 'anton@gmail.com',
-        phone: null,
-        UserId: null,
-        token: null,
-      },
+    this.state = {
+      user: [],
       newname: '',
       newemail: '',
+      profile: {},
     };
   }
-  // componentDidMount = async () => {
-  // await AsyncStorage.setItem('email', this.state.user.email.toString());
-  // await AsyncStorage.getItem('email')
-  // .then(email => {
-  // await this.props.dispatch(getUser('anton@gmail.com'));
-  // await this.setState({user: this.props.user});
-  // });
-  // await AsyncStorage.setItem('name', this.props.user.profile.name);
-  // console.log(this.props.user);
-  // };
+  componentDidMount = async () => {
+    await AsyncStorage.setItem('email', 'susi@gmail.com');
+    await AsyncStorage.getItem('email').then(email => {
+      this.props.dispatch(getUser(email));
+    });
+    await this.setState({
+      user: this.props.user,
+      profile: this.props.user.profile,
+    });
+    await console.log(this.state.profile);
+  };
   render() {
+    const {photo, balance} = this.state.user;
+    const {name, address, phone} = this.state.profile;
     return (
       <SafeAreaView style={{flex: 1, marginHorizontal: 10}}>
         <StatusBar translucent backgroundColor="transparent" />
@@ -83,13 +81,13 @@ class Profile extends Component {
               overflow: 'hidden',
             }}>
             <Image
-              resizeMode="contain"
+              resizeMode="cover"
               style={{
                 height: 80,
                 width: 80,
                 borderRadius: 40,
               }}
-              source={require('../../Assets/Icon/avatar.jpg')}
+              source={{uri: `${photo}`}}
             />
           </View>
           <View
@@ -98,15 +96,18 @@ class Profile extends Component {
               flex: 1,
               marginLeft: 10,
             }}>
-            <Text style={{fontSize: 18}}>Nama User</Text>
-            <Text>{this.state.user.email}</Text>
-            <Text>Lokasi User</Text>
+            <Text style={{fontSize: 18}}>{this.state.profile.name}</Text>
+            <Text>{phone}</Text>
+            <Text>{address}</Text>
           </View>
         </View>
         <ScrollView>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate('EditScreen');
+              this.props.navigation.navigate('EditScreen', {
+                user: this.state.user,
+                profile: this.state.profile,
+              });
             }}
             style={{
               flexDirection: 'row',
@@ -132,7 +133,10 @@ class Profile extends Component {
           <View style={{backgroundColor: 'grey', height: 1}}></View>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate('BalanceScreen');
+              this.props.navigation.navigate('BalanceScreen', {
+                user: this.state.user,
+                profile: this.state.profile,
+              });
             }}
             style={{
               flexDirection: 'row',
@@ -176,13 +180,13 @@ class Profile extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     user: state.user.user,
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    user: state.user.user,
+  };
+};
 
-export default Profile;
+export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
   container: {

@@ -15,8 +15,66 @@ import {
   TextInput,
   SafeAreaView,
 } from 'react-native';
+import {Icon} from 'native-base';
+import ImagePicker from 'react-native-image-picker';
+
+requestCameraPermission = async () => {
+  try {
+    const granted = await PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    ]);
+    return granted === PermissionsAndroid.RESULTS.GRANTED;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+changeImage = async type => {
+  const options = {
+    title: 'Select Avatar',
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+    mediaType: 'photo',
+  };
+
+  let cameraPermission =
+    (await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA)) &&
+    PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    ) &&
+    PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    );
+  if (!cameraPermission) {
+    cameraPermission = await requestCameraPermission();
+  } else {
+    ImagePicker.showImagePicker(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const source = {uri: 'data:image/jpeg;base64,' + response.data};
+
+        setImage(response.uri);
+        setImgData(source.uri);
+
+        setInterval(function() {
+          setImgLoading(true);
+        }, 5000).catch(err => console.log(err));
+      }
+    });
+  }
+};
 
 const EditProfile = props => {
+  const {photo, email} = props.navigation.getParam('user');
+  const {name, phone, address} = props.navigation.getParam('profile');
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />
@@ -31,6 +89,34 @@ const EditProfile = props => {
             height: 200,
             justifyContent: 'flex-end',
           }}>
+          <ImageBackground
+            source={{uri: `${photo}`}}
+            resizeMode="center"
+            style={{width: 400, height: 200}}>
+            <TouchableOpacity
+              style={{
+                marginTop: 'auto',
+                bottom: -25,
+                right: 60,
+                marginLeft: 'auto',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'white',
+                width: 50,
+                height: 50,
+                borderRadius: 25,
+                borderColor: '#E5E7E9',
+                borderWidth: 1,
+              }}
+              onPress={this.changeImage}>
+              <Icon
+                name="camera"
+                type="MaterialIcons"
+                style={{color: '#fb724a'}}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
+
           {/* <ImageBackground
                 resizeMode="contain"
                 style={{
@@ -73,15 +159,15 @@ const EditProfile = props => {
             Account
           </Text>
           <Text style={{fontSize: 18}}>Username</Text>
-          <TextInput placeholder="Nama User" style={styles.elementform} />
+          <TextInput defaultValue={name} style={styles.elementform} />
 
           <View style={styles.separator}></View>
           <Text style={{fontSize: 18}}>Email</Text>
-          <TextInput placeholder="Email" style={styles.elementform} />
+          <TextInput defaultValue={email} style={styles.elementform} />
 
           <View style={styles.separator}></View>
           <Text style={{fontSize: 18}}>Address</Text>
-          <TextInput placeholder="Address" style={styles.elementform} />
+          <TextInput defaultValue={address} style={styles.elementform} />
 
           <View style={styles.separator}></View>
           <Text style={{fontSize: 18}}>Password</Text>

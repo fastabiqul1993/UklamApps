@@ -56,12 +56,13 @@ const AuthStack = createStackNavigator(
 
 const AppStack = createStackNavigator(
   {
-    HomeScreen: {
-      screen: Home,
-    },
     ProfileScreen: {
       screen: ProfileStack,
     },
+    HomeScreen: {
+      screen: Home,
+    },
+
     BookingScreen: {
       screen: Booking,
     },
@@ -97,4 +98,4 @@ const InitialNavigation = createSwitchNavigator({
   AppNavigator: {screen: AppNavigator},
 });
 
-export default AppContainer = createAppContainer(AppNavigator);
+export default AppContainer = createAppContainer(InitialNavigation);
