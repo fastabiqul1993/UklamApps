@@ -45,9 +45,10 @@ export default class ChatHistory extends Component {
       <SafeAreaView style={{flex: 1}}>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('ChatUser', {item})}
-        //   onLongPress={() =>
-        //     this.props.navigation.navigate('FriendProfile', {item})
-        //   }>
+          //   onLongPress={() =>
+          //     this.props.navigation.navigate('FriendProfile', {item})
+          //   }
+        >
           <View style={styles.row}>
             <Image source={{uri: item.photo}} style={styles.pic} />
             <View>
