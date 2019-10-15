@@ -23,13 +23,32 @@ import {
   Toast,
 } from 'native-base';
 import FooterTab from '../../Components/Navbars/Footer';
-// import {withNavigation} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
+import {connect} from 'react-redux';
+import {getUser} from '../../Publics/Redux/Actions/user';
+import {withNavigation} from 'react-navigation';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: [],
+      newname: '',
+      newemail: '',
+      profile: {},
+    };
   }
+  componentDidMount = async () => {
+    await this.props.dispatch(getUser('susi@gmail.com')).then(
+      this.setState({
+        user: this.props.user,
+        profile: this.props.user.profile,
+      }),
+    );
+  };
   render() {
+    const {photo, balance} = this.state.user;
+    const {name, address, phone} = this.state.profile;
     return (
       <SafeAreaView style={{flex: 1, marginHorizontal: 10}}>
         <StatusBar translucent backgroundColor="transparent" />
@@ -59,13 +78,13 @@ class Profile extends Component {
               overflow: 'hidden',
             }}>
             <Image
-              resizeMode="contain"
+              resizeMode="cover"
               style={{
                 height: 80,
                 width: 80,
                 borderRadius: 40,
               }}
-              source={require('../../Assets/Icon/avatar.jpg')}
+              source={{uri: `${photo}`}}
             />
           </View>
           <View
@@ -74,15 +93,18 @@ class Profile extends Component {
               flex: 1,
               marginLeft: 10,
             }}>
-            <Text style={{fontSize: 18}}>Nama User</Text>
-            <Text>Email</Text>
-            <Text>Lokasi User</Text>
+            <Text style={{fontSize: 18}}>{this.state.profile.name}</Text>
+            <Text>{phone}</Text>
+            <Text>{address}</Text>
           </View>
         </View>
         <ScrollView>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate('EditScreen');
+              this.props.navigation.navigate('EditScreen', {
+                user: this.state.user,
+                profile: this.state.profile,
+              });
             }}
             style={{
               flexDirection: 'row',
@@ -108,7 +130,10 @@ class Profile extends Component {
           <View style={{backgroundColor: 'grey', height: 1}}></View>
           <TouchableOpacity
             onPress={() => {
-              this.props.navigation.navigate('BalanceScreen');
+              this.props.navigation.navigate('BalanceScreen', {
+                user: this.state.user,
+                profile: this.state.profile,
+              });
             }}
             style={{
               flexDirection: 'row',
@@ -151,7 +176,14 @@ class Profile extends Component {
     );
   }
 }
-export default Profile;
+
+const mapStateToProps = state => {
+  return {
+    user: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
   container: {

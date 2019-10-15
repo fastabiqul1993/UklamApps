@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  StatusBar,
+  Image,
+} from 'react-native';
+import {Icon} from 'native-base';
 import FooterTab from '../../Components/Navbars/Footer';
 
 class Booking extends Component {
@@ -48,25 +56,36 @@ class Booking extends Component {
           }}>
           <View
             style={{
-              backgroundColor: '#fb724a',
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              marginRight: 16,
-            }}></View>
+              height: 60,
+              width: 60,
+              borderRadius: 10,
+              marginRight: 5,
+              overflow: 'hidden',
+            }}>
+            <Image
+              style={{width: 60, height: 60}}
+              resizemode="center"
+              source={require('../../Assets/Icon/thumb.jpg')}
+            />
+          </View>
           <View>
             <Text>Judul/Nama Destinasi</Text>
             <Text style={{fontSize: 12, color: 'grey'}}>Tanggal</Text>
           </View>
           <View
             style={{
-              backgroundColor: '#fb724a',
-              width: 50,
+              width: 40,
               right: 5,
               alignItems: 'center',
+              justifyContent: 'center',
               marginLeft: 'auto',
             }}>
-            <Text>Chat</Text>
+            <Icon
+              active
+              name="message"
+              type="MaterialIcons"
+              style={{color: '#fb724a'}}
+            />
           </View>
         </View>
         <FooterTab />

@@ -31,7 +31,7 @@ const ProfileStack = createStackNavigator(
     PrivacyPolicyScreen: {screen: PrivacyPolicy},
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: 'ProfileScreen',
     defaultNavigationOptions: {
       header: null,
     },
@@ -54,7 +54,7 @@ const AuthStack = createStackNavigator(
   },
 );
 
-const AppStack = TabNavigator(
+const AppStack = createStackNavigator(
   {
     HomeScreen: {
       screen: Home,
@@ -97,4 +97,4 @@ const InitialNavigation = createSwitchNavigator({
   AppNavigator: {screen: AppNavigator},
 });
 
-export default AppContainer = createAppContainer(AppNavigator);
+export default AppContainer = createAppContainer(InitialNavigation);
