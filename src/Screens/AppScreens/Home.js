@@ -25,7 +25,12 @@ class myHome extends Component {
             <View style={{height: 150}}>
               <ImageBackground
                 source={Logo}
-                style={{width: '100%', height: '100%', resizeMode: 'stretch'}}>
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  resizeMode: 'stretch',
+                  backgroundColor: '#f9791b',
+                }}>
                 <Text
                   style={{
                     paddingHorizontal: 20,
