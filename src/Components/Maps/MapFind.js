@@ -1,23 +1,27 @@
 import React, {Component} from 'react';
 import {
-  View,
-  Text,
-  StatusBar,
   StyleSheet,
+  StatusBar,
   PermissionsAndroid,
+  View,
+  Image,
+  Text,
 } from 'react-native';
+import {Thumbnail} from 'native-base';
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
   AnimatedRegion,
 } from 'react-native-maps';
 import geolocation from '@react-native-community/geolocation';
+import {identifier} from '@babel/types';
+import Carousel from '../Carousel/GuideCarousel';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
 class myMap extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       region: {
         latitude: -7.7585007,
@@ -25,56 +29,97 @@ class myMap extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      coordinate: new AnimatedRegion(
-        {
-          latitude: -7.756594,
-          longitude: 110.380572,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-        {
-          latitude: -7.757968,
-          longitude: 110.383744,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-        {
-          latitude: -7.764915,
-          longitude: 110.379007,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-      ),
+      coordinate: new AnimatedRegion({
+        latitude: -7.756594,
+        longitude: 110.380572,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }),
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const duration = 500;
+  // componentDidMount = async () => {
+  //   // this.setState({uid: await AsyncStorage.getItem('uid')});
 
-    if (this.props.coordinate !== nextProps.coordinate) {
-      if (Platform.OS === 'android') {
-        if (this.marker) {
-          this.marker._component.animateMarkerToCoordinate(
-            nextProps.coordinate,
-            duration,
-          );
-        }
+  //   let hasLocationPermission = await PermissionsAndroid.check(
+  //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  //   );
+  //   if (!hasLocationPermission) {
+  //     console.log('tidak coy');
+  //     hasLocationPermission = await this.reqLocationPermission();
+  //   }
+  //   if (hasLocationPermission) {
+  //     geolocation.getCurrentPosition(
+  //       async position => {
+  //         let myPosition = {
+  //           latitude: position.coords.latitude,
+  //           longitude: position.coords.longitude,
+  //           latitudeDelta: 0.0922,
+  //           longitudeDelta: 0.0421,
+  //         };
+  //         // await firebase
+  //         //   .database()
+  //         //   .ref('user')
+  //         //   .child(this.state.uid)
+  //         //   .update({myPosition})
+  //         //   .then(() => {
+  //         //     this.setState({
+  //         //       region: {
+  //         //         ...this.state.region,
+  //         //         latitude: position.coords.latitude,
+  //         //         longitude: position.coords.longitude,
+  //         //         latitudeDelta: 0.0922,
+  //         //         longitudeDelta: 0.0421,
+  //         //       },
+  //         //     });
+  //         //     console.log('aaa = ', this.state.region);
+  //         //   });
+  //       },
+  //       err => {
+  //         console.log(err.code, err.message);
+  //       },
+  //       {
+  //         showLocationDialog: true,
+  //         distanceFilter: 1,
+  //         enableHighAccuracy: true,
+  //         fastestInterval: 5000,
+  //         timeout: 15000,
+  //         maximumAge: 10000,
+  //       },
+  //     );
+  //   }
+  // };
+
+  reqLocationPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Hidupkan GPS untuk explore lebih',
+          message: 'MeoChat Need permission for location',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Anda dapat menggunakan GPS');
       } else {
-        this.state.coordinate
-          .timing({
-            ...nextProps.coordinate,
-            duration,
-          })
-          .start();
+        console.log('GPS permission denied');
       }
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    } catch (err) {
+      console.warn(err);
+      return false;
     }
-  }
+  };
 
   render() {
+    console.log('salam dari map = ', this.props);
     return (
       <View>
         <StatusBar translucent backgroundColor={'transparent'} />
-        {/* <MapView
+        <MapView
           style={styles.mapstyle}
           provider={PROVIDER_GOOGLE}
           showsCompass={true}
@@ -86,15 +131,67 @@ class myMap extends Component {
           maxZoomLevel={20}
           initialRegion={this.state.region}
           // region={this.state.region}
-        ></MapView> */}
-        <MapView initialRegion={this.state.region} style={styles.mapstyle}>
+        >
+          {this.props.guides.map((user, index) => {
+            if (user.location.latitude !== null) {
+              return (
+                <Marker
+                  key={index}
+                  // title={user.id == uid ? 'You' : user.username}
+                  title={user.profile.name}
+                  // description={user.id == uid ? '' : user.status}
+                  description={user.status}
+                  coordinate={user.location}
+                  // onCalloutPress={
+                  //   user.id == uid
+                  //     ? () => {
+                  //         console.log(uid);
+                  //       }
+                  //     : // () => {
+                  //       //     console.log(user.username);
+                  //       //   }
+                  //       // this.props.navigation.navigate('chatScreen', item);
+                  //       () => {
+                  //         this.props.navigation.navigate('chatScreen', user);
+                  //       }
+                  // }
+                  onCalloutPress={() => {
+                    this.props.navigation.navigate('chatScreen', user);
+                  }}>
+                  {
+                    //   user.id == uid ? (
+                    //   <View>
+                    //     <Image source={myMarker} style={styles.markerYou} />
+
+                    //   </View>
+                    // ) : (
+                    <View>
+                      <Thumbnail
+                        small
+                        source={{uri: user.photo}}
+                        style={
+                          user.status == 'available'
+                            ? styles.markerOnline
+                            : styles.markerOffline
+                        }
+                      />
+                    </View>
+                    // )
+                  }
+                </Marker>
+              );
+            }
+          })}
+        </MapView>
+        {/* <MapView initialRegion={this.state.region} style={styles.mapstyle}>
           <MapView.Marker.Animated
             ref={marker => {
               this.marker = marker;
             }}
             coordinate={this.state.coordinate}
           />
-        </MapView>
+        </MapView> */}
+        <Carousel guides={this.props.guides} />
       </View>
     );
   }
@@ -105,7 +202,8 @@ export default myMap;
 const styles = StyleSheet.create({
   mapstyle: {
     width: '100%',
-    height: '100%',
+    height: '68%',
+    position: 'relative',
   },
   mapCoor: {
     height: 40,
