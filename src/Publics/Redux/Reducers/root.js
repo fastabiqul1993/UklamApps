@@ -8,5 +8,5 @@ const reducers = combineReducers({
   auth,
   transaction,
   packages,
-
+});
 export default reducers;

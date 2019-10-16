@@ -17,3 +17,10 @@ export const patchUser = (email, data) => {
     ),
   };
 };
+
+export const getAllGuide = () => {
+  return {
+    type: 'GET_AllGuide',
+    payload: axios.get(`http://54.235.224.136:5000/api/guide/`),
+  };
+};

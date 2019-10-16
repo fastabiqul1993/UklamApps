@@ -39,20 +39,22 @@ class Profile extends Component {
     };
   }
   componentDidMount = async () => {
-    // await AsyncStorage.getItem('email').then(email => {
-    //   this.setState({email: email});
-    // });
-    // await this.props.dispatch(getUser('this.state.email')).then(
-    // await this.setState({
-    //   user: this.props.user,
-    //   profile: this.props.profile,
-    // });
-    // );
-    await this.setState({
-      user: this.props.navigation.auth.dataUser.guide,
-      profile: this.props.navigation.auth.dataUser.guide.profile,
+    await AsyncStorage.getItem('email').then(email => {
+      this.setState({email: email});
     });
-    console.log('profile', this.props);
+    await this.props.dispatch(getUser(this.state.email));
+    await new Promise(resolve => {
+      setTimeout(resolve, 1000);
+    }),
+      await this.setState({
+        user: this.props.user,
+        profile: this.props.user.profile,
+      });
+
+    // await this.setState({
+    //   user: this.props.auth.dataUser.guide,
+    //   profile: this.props.auth.dataUser.guide.profile,
+    // });
   };
 
   handleLogout = async () => {
@@ -98,7 +100,7 @@ class Profile extends Component {
                 borderRadius: 40,
                 overflow: 'hidden',
               }}>
-              {/* <Image
+              <Image
                 resizeMode="cover"
                 style={{
                   height: 80,
@@ -106,7 +108,7 @@ class Profile extends Component {
                   borderRadius: 40,
                 }}
                 source={{uri: `${photo}`}}
-              /> */}
+              />
             </View>
             <View
               style={{
@@ -204,12 +206,12 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.dataUser.profile,
-    profile: state.auth.dataUser.guide,
+    user: state.user.user,
+    // profile: state.auth.dataUser.guide.profile,
   };
 };
 
-export default connect()(Profile);
+export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
   container: {

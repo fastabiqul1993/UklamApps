@@ -89,8 +89,7 @@ const MainFooter = props => {
             onPress={() => {
               _logOut();
             }}
-            // onPress={() => props.navigation.navigate('ProfileScreen')}
-          >
+            onPress={() => props.navigation.navigate('ProfileScreen')}>
             <Icon name="person" style={{color: '#fb724a'}} />
             <Text style={{fontSize: 10, color: '#fb724a'}}>Profile</Text>
           </Button>

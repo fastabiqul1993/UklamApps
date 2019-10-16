@@ -1,5 +1,6 @@
 const initialState = {
   user: [],
+  guide: [],
   token: '',
   isLoading: false,
   isRejected: false,
@@ -28,7 +29,7 @@ const user = (state = initialState, action) => {
         isFulfilled: true,
         user: action.payload.data.response,
       };
-
+    ////////////////////////////////////////////////////////////////////
     case 'PATCH_USER_PENDING':
       return {
         ...state,
@@ -47,6 +48,27 @@ const user = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isFulfilled: true,
+      };
+    //////////////////////////////////////////////////////////////////////////
+    case 'GET_AllGuide_PENDING':
+      return {
+        ...state,
+        isLoading: true,
+        isRejected: false,
+        isFulfilled: false,
+      };
+    case 'GET_AllGuide_REJECTED':
+      return {
+        ...state,
+        isLoading: false,
+        isRejected: true,
+      };
+    case 'GET_AllGuide_FULFILLED':
+      return {
+        ...state,
+        isLoading: false,
+        isFulfilled: true,
+        guide: action.payload.data.response,
       };
 
     default:
