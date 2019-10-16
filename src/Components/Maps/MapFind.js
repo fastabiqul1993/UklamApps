@@ -13,6 +13,8 @@ import MapView, {
 } from 'react-native-maps';
 import geolocation from '@react-native-community/geolocation';
 
+import Carousel from '../Carousel/GuideCarousel';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 class myMap extends Component {
@@ -25,26 +27,12 @@ class myMap extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      coordinate: new AnimatedRegion(
-        {
-          latitude: -7.756594,
-          longitude: 110.380572,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-        {
-          latitude: -7.757968,
-          longitude: 110.383744,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-        {
-          latitude: -7.764915,
-          longitude: 110.379007,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-      ),
+      coordinate: new AnimatedRegion({
+        latitude: -7.756594,
+        longitude: 110.380572,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }),
     };
   }
 
@@ -95,6 +83,7 @@ class myMap extends Component {
             coordinate={this.state.coordinate}
           />
         </MapView>
+        <Carousel />
       </View>
     );
   }
@@ -105,7 +94,8 @@ export default myMap;
 const styles = StyleSheet.create({
   mapstyle: {
     width: '100%',
-    height: '100%',
+    height: '65%',
+    position: 'relative',
   },
   mapCoor: {
     height: 40,

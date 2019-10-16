@@ -31,7 +31,7 @@ class myCarousel extends Component {
                       onPress={() => {
                         this.props.navigation.navigate('PackageItemScreen');
                       }}>
-                      <View style={styles.mainCard}>
+                      <View style={styles.mainCard} key={index}>
                         <View>
                           <Image
                             source={{uri: res.photo}}

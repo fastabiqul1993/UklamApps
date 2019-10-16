@@ -17,11 +17,7 @@ import EditProfile from '../Components/Profile/EditProfile';
 import Wishlist from '../Components/Profile/Wishlist';
 import Balance from '../Components/Profile/Balance';
 import PrivacyPolicy from '../Components/Profile/PrivacyPolicy';
-import Home from '../Screens/AppScreens/Home'; //Load Top city and more
 import Package from '../Screens/AppScreens/Package'; //selected City and load more tourist destination
-import PackageDestination from '../Screens/AppScreens/PackageDestination'; // selected DDestination and chose package
-import SearchGuide from '../Screens/AppScreens/SearchGuide'; // search Guide in gmaps
-import ChatUser from '../Screens/AppScreens/ChatUser'; // chat with Guide
 import ChatHistory from '../Screens/AppScreens/ChatHistory'; //List History Chate dengan Guide
 
 // import Destination from '../Screens/AppScreens/Destination';
