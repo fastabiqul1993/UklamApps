@@ -6,11 +6,29 @@ import {
   Text,
   StatusBar,
   Image,
+  ToastAndroid,
 } from 'react-native';
-import {Icon} from 'native-base';
+import {Icon, Button} from 'native-base';
 import FooterTab from '../../Components/Navbars/Footer';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Activity extends Component {
+  state = {
+    email: '',
+    transaction: [],
+  };
+
+  handleLogout = async () => {
+    await AsyncStorage.clear().then(() =>
+      this.props.navigation.navigate('splashScreen'),
+    );
+    ToastAndroid.showWithGravity(
+      'Berhasil logout',
+      ToastAndroid.LONG,
+      ToastAndroid.CENTER,
+    );
+  };
+
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
@@ -57,6 +75,9 @@ class Activity extends Component {
                 type="MaterialIcons"
                 style={{color: '#fb724a'}}
               />
+              <Button onPress={this.handleLogout}>
+                <Text>Logout</Text>
+              </Button>
             </View>
           </View>
         </View>

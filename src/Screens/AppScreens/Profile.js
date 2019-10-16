@@ -39,13 +39,33 @@ class Profile extends Component {
     };
   }
   componentDidMount = async () => {
-    await this.props.dispatch(getUser('susi@gmail.com')).then(
-      this.setState({
-        user: this.props.user,
-        profile: this.props.profile,
-      }),
+    // await AsyncStorage.getItem('email').then(email => {
+    //   this.setState({email: email});
+    // });
+    // await this.props.dispatch(getUser('this.state.email')).then(
+    // await this.setState({
+    //   user: this.props.user,
+    //   profile: this.props.profile,
+    // });
+    // );
+    await this.setState({
+      user: this.props.navigation.auth.dataUser.guide,
+      profile: this.props.navigation.auth.dataUser.guide.profile,
+    });
+    console.log('profile', this.props);
+  };
+
+  handleLogout = async () => {
+    await AsyncStorage.clear().then(() =>
+      this.props.navigation.navigate('splashScreen'),
+    );
+    ToastAndroid.showWithGravity(
+      'Berhasil logout',
+      ToastAndroid.LONG,
+      ToastAndroid.CENTER,
     );
   };
+
   render() {
     const {photo, balance} = this.state.user;
     const {name, address, phone} = this.state.profile;
@@ -78,7 +98,7 @@ class Profile extends Component {
                 borderRadius: 40,
                 overflow: 'hidden',
               }}>
-              <Image
+              {/* <Image
                 resizeMode="cover"
                 style={{
                   height: 80,
@@ -86,7 +106,7 @@ class Profile extends Component {
                   borderRadius: 40,
                 }}
                 source={{uri: `${photo}`}}
-              />
+              /> */}
             </View>
             <View
               style={{
@@ -163,6 +183,7 @@ class Profile extends Component {
             </TouchableOpacity>
             <View style={{backgroundColor: 'grey', height: 1}}></View>
             <TouchableOpacity
+              onPress={this.handleLogout}
               style={{
                 marginTop: 40,
                 backgroundColor: '#fb724a',
@@ -183,12 +204,12 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.user,
-    profile: state.user.user.profile,
+    user: state.auth.dataUser.profile,
+    profile: state.auth.dataUser.guide,
   };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect()(Profile);
 
 const styles = StyleSheet.create({
   container: {
