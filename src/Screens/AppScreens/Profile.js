@@ -38,14 +38,26 @@ class Profile extends Component {
       profile: [],
     };
   }
-  componentDidMount = async () => {
-    await this.props.dispatch(getUser('susi@gmail.com')).then(
-      this.setState({
-        user: this.props.user,
-        profile: this.props.profile,
-      }),
+  // componentDidMount = async () => {
+  //   await this.props.dispatch(getUser('susi@gmail.com')).then(
+  //     this.setState({
+  //       user: this.props.user,
+  //       profile: this.props.profile,
+  //     }),
+  //   );
+  // };
+
+  handleLogout = async () => {
+    await AsyncStorage.clear().then(() =>
+      this.props.navigation.navigate('splashScreen'),
+    );
+    ToastAndroid.showWithGravity(
+      'Berhasil logout',
+      ToastAndroid.LONG,
+      ToastAndroid.CENTER,
     );
   };
+
   render() {
     const {photo, balance} = this.state.user;
     const {name, address, phone} = this.state.profile;
@@ -71,7 +83,7 @@ class Profile extends Component {
               marginBottom: 14,
               overflow: 'hidden',
             }}>
-            <View
+            {/* <View
               style={{
                 height: 80,
                 width: 80,
@@ -97,7 +109,7 @@ class Profile extends Component {
               <Text style={{fontSize: 18}}>{name}</Text>
               <Text>{phone}</Text>
               <Text>{address}</Text>
-            </View>
+            </View> */}
           </View>
           <ScrollView>
             <TouchableOpacity
@@ -163,6 +175,7 @@ class Profile extends Component {
             </TouchableOpacity>
             <View style={{backgroundColor: 'grey', height: 1}}></View>
             <TouchableOpacity
+              onPress={this.handleLogout}
               style={{
                 marginTop: 40,
                 backgroundColor: '#fb724a',
