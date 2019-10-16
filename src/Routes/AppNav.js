@@ -51,7 +51,7 @@ const ChatStack = createStackNavigator(
     ChatScreen: {screen: ChatUser},
   },
   {
-    initialRouteName: 'ChatHistoryScreen',
+    initialRouteName: 'ChatScreen',
     defaultNavigationOptions: {
       header: null,
     },

@@ -2,22 +2,40 @@ import React from 'react';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {View, Text} from 'react-native';
+import {View, Text, ImageBackground} from 'react-native';
 import Activity from '../../Components/Booking/Activity';
 import History from '../../Components/Booking/History';
 
 const Header = () => {
   return (
-    <View style={{marginHorizontal: 10}}>
-      <Text
-        style={{
-          fontWeight: 'bold',
-          marginBottom: 10,
-          fontSize: 28,
-          marginTop: 30,
-        }}>
-        Booking
-      </Text>
+    <View style={{height: 80}}>
+      <ImageBackground
+        source={require('../../Assets/Background/headerbg.jpg')}
+        style={{width: '100%', height: '100%', overflow: 'hidden'}}>
+        <View
+          style={{
+            width: 150,
+            alignItems: 'center',
+            paddingHorizontal: 5,
+            borderRadius: 5,
+            overflow: 'hidden',
+            backgroundColor: 'rgba(253, 254, 254, 0.8)',
+            height: 50,
+            marginTop: 16,
+            justifyContent: 'center',
+          }}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+
+              fontSize: 28,
+
+              color: '#fb724a',
+            }}>
+            Booking
+          </Text>
+        </View>
+      </ImageBackground>
     </View>
   );
 };

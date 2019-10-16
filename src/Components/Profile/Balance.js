@@ -15,7 +15,7 @@ const Balance = props => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <ImageBackground
-        source={require('../../Assets/Background/background.png')}
+        source={require('../../Assets/Background/background.jpg')}
         style={{
           width: '100%',
           height: '100%',

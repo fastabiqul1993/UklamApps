@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
-import {GiftedChat, Bubble} from 'react-native-gifted-chat';
+import {
+  GiftedChat,
+  Bubble,
+  Actions,
+  SystemMessage,
+  Send,
+  Composer,
+} from 'react-native-gifted-chat';
 import {View, StatusBar} from 'react-native';
 import {Icon} from 'native-base';
 import firebase from 'firebase';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import {Database} from '../../Configs/config';
 export default class Example extends Component {
   constructor(props) {
     super(props);
@@ -39,47 +46,53 @@ export default class Example extends Component {
     this.state = {
       message: '',
       messageList: [],
-      person: this.props.navigation.getParam('item'),
-      userId: AsyncStorage.getItem('userid'),
-      userName: AsyncStorage.getItem('user.name'),
-      userAvatar: AsyncStorage.getItem('user.photo'),
+
+      // person: this.props.navigation.getParam('item'),
+      // userId: AsyncStorage.getItem('userid'),
+      // userName: AsyncStorage.getItem('user.name'),
+      // userAvatar: AsyncStorage.getItem('user.photo'),
+      // email: AsyncStorage.getItem('email'),
+      person: {email: 'temannyakura@gmail.com', name: 'temannyakura'},
+      userName: 'kura',
+      email: 'kura@gmail.com',
+      // userAvatar:''
     };
   }
 
   onSend = async () => {
     if (this.state.message.length > 0) {
-      let msgId = firebase
+      let msgEmail = firebase
         .database()
         .ref('messages')
-        .child(this.state.userId)
-        .child(this.state.person.id)
+        .child(this.state.userName)
+        .child(this.state.person.name)
         .push().key;
       let updates = {};
       let message = {
-        _id: msgId,
+        _email: msgEmail,
         text: this.state.message,
         createdAt: firebase.database.ServerValue.TIMESTAMP,
         user: {
-          _id: this.state.userId,
+          _email: this.state.email,
           name: this.state.userName,
-          avatar: this.state.userAvatar,
+          // avatar: this.state.userAvatar,
         },
       };
       updates[
         'messages/' +
-          this.state.userId +
+          this.state.userName +
           '/' +
-          this.state.person.id +
+          this.state.person.name +
           '/' +
-          msgId
+          msgEmail
       ] = message;
       updates[
         'messages/' +
-          this.state.person.id +
+          this.state.person.name +
           '/' +
-          this.state.userId +
+          this.state.userName +
           '/' +
-          msgId
+          msgEmail
       ] = message;
       firebase
         .database()
@@ -90,15 +103,16 @@ export default class Example extends Component {
   };
 
   componentDidMount = async () => {
-    const userId = await AsyncStorage.getItem('userid');
-    const userName = await AsyncStorage.getItem('user.name');
-    const userAvatar = await AsyncStorage.getItem('user.photo');
-    this.setState({userId, userName, userAvatar});
+    // const email = await AsyncStorage.getItem('email');
+    // const userId = await AsyncStorage.getItem('userid');
+    // const userName = await AsyncStorage.getItem('user.name');
+    // const userAvatar = await AsyncStorage.getItem('user.photo');
+    // this.setState({email, userId, userName, userAvatar});
     firebase
       .database()
       .ref('messages')
-      .child(this.state.userId)
-      .child(this.state.person.id)
+      .child(this.state.userName)
+      .child(this.state.person.name)
       .on('child_added', val => {
         this.setState(previousState => ({
           messageList: GiftedChat.append(previousState.messageList, val.val()),
@@ -119,17 +133,17 @@ export default class Example extends Component {
     );
   }
 
-  // icon berganti saat input text
-  renderSend = props => {
-    if (!props.text.trim()) {
-      // text box empty
-      return (
-        <Icon name="microphone" type="FontAwesome" color="#fb724a" size={50} />
-      );
-    }
-    //after type
-    return <Icon name="ios-send" type="Ionicons" color="#fb724a" size={50} />;
-  };
+  // // icon berganti saat input text
+  // renderSend = props => {
+  //   if (!props.text.trim()) {
+  //     // text box empty
+  //     return (
+  //       <Icon name="microphone" type="FontAwesome" color="#fb724a" size={50} />
+  //     );
+  //   }
+  //   //after type
+  //   return <Icon name="ios-send" type="Ionicons" color="#fb724a" size={50} />;
+  // };
 
   render() {
     // console.log('chat data , ', this.props.data);
@@ -137,18 +151,19 @@ export default class Example extends Component {
       <View style={{flex: 1}}>
         <StatusBar translucent backgroundColor="transparent" />
         <GiftedChat
-          renderSend={this.renderSend}
+          // renderSend={this.renderSend}
           renderBubble={this.renderBubble}
-          text={this.state.text}
-          messages={this.state.messages}
-          onSend={this.onSend}
+          text={this.state.message}
+          messages={this.state.messageList}
+          onInputTextChanged={val => {
+            this.setState({message: val});
+          }}
+          messages={this.state.messageList}
+          onSend={() => this.onSend()}
           showAvatarForEveryMessage={true}
           user={{
-            _id: this.state.myuid,
-            name: this.state.myname,
-            avatar: this.state.avatar,
+            _email: this.state.email,
           }}
-          onInputTextChanged={value => this.setState({text: value})}
         />
       </View>
     );
