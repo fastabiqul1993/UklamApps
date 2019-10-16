@@ -38,14 +38,22 @@ class Profile extends Component {
       profile: [],
     };
   }
-  // componentDidMount = async () => {
-  //   await this.props.dispatch(getUser('susi@gmail.com')).then(
-  //     this.setState({
-  //       user: this.props.user,
-  //       profile: this.props.profile,
-  //     }),
-  //   );
-  // };
+  componentDidMount = async () => {
+    // await AsyncStorage.getItem('email').then(email => {
+    //   this.setState({email: email});
+    // });
+    // await this.props.dispatch(getUser('this.state.email')).then(
+    // await this.setState({
+    //   user: this.props.user,
+    //   profile: this.props.profile,
+    // });
+    // );
+    await this.setState({
+      user: this.props.navigation.auth.dataUser.guide,
+      profile: this.props.navigation.auth.dataUser.guide.profile,
+    });
+    console.log('profile', this.props);
+  };
 
   handleLogout = async () => {
     await AsyncStorage.clear().then(() =>
@@ -83,14 +91,14 @@ class Profile extends Component {
               marginBottom: 14,
               overflow: 'hidden',
             }}>
-            {/* <View
+            <View
               style={{
                 height: 80,
                 width: 80,
                 borderRadius: 40,
                 overflow: 'hidden',
               }}>
-              <Image
+              {/* <Image
                 resizeMode="cover"
                 style={{
                   height: 80,
@@ -98,7 +106,7 @@ class Profile extends Component {
                   borderRadius: 40,
                 }}
                 source={{uri: `${photo}`}}
-              />
+              /> */}
             </View>
             <View
               style={{
@@ -109,7 +117,7 @@ class Profile extends Component {
               <Text style={{fontSize: 18}}>{name}</Text>
               <Text>{phone}</Text>
               <Text>{address}</Text>
-            </View> */}
+            </View>
           </View>
           <ScrollView>
             <TouchableOpacity
@@ -196,12 +204,12 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.user,
-    profile: state.user.user.profile,
+    user: state.auth.dataUser.profile,
+    profile: state.auth.dataUser.guide,
   };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect()(Profile);
 
 const styles = StyleSheet.create({
   container: {
