@@ -108,13 +108,13 @@ class SignUp extends Component {
     }
   };
 
-  // componentDidMount = async () => {
-  //   await AsyncStorage.getItem('token', (err, res) => {
-  //     console.log(err, res);
-  //     console.log('ini responnya =', res);
-  //     if (res) this.props.navigation.navigate('HomeScreen');
-  //   });
-  // };
+  componentDidMount = async () => {
+    await AsyncStorage.getItem('token', (err, res) => {
+      console.log(err, res);
+      console.log('ini responnya =', res);
+      if (res) this.props.navigation.navigate('HomeScreen');
+    });
+  };
 
   render() {
     return (

@@ -8,6 +8,12 @@ import Logo from '../../Assets/img/dest1.jpg';
 
 class myDestination extends Component {
   render() {
+    console.log(
+      'props in destination = ',
+      this.props.navigation.state.params.destination,
+    );
+
+    let destination = this.props.navigation.state.params.destination;
     return (
       <View>
         <ImageBackground
@@ -38,7 +44,7 @@ class myDestination extends Component {
               height: '100%',
               bottom: 0,
               backgroundColor: '#000',
-              opacity: 0.2,
+              opacity: 0.4,
               position: 'absolute',
             }}></View>
           <View
@@ -54,7 +60,7 @@ class myDestination extends Component {
             </Text>
           </View>
           <View style={{position: 'absolute', bottom: 40}}>
-            <Carousel navigation={this.props.navigation} />
+            <Carousel navigation={this.props.navigation} data={destination} />
           </View>
         </ImageBackground>
       </View>
