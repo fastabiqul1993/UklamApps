@@ -102,7 +102,11 @@ export default class Signin extends Component {
           <Content>
             <ImageBackground
               source={Bg}
-              style={{width: '100%', height: '100%'}}>
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: '#fb724a',
+              }}>
               {/* <Container style={styles.container}>
             <Content showsVerticalScrollIndicator={false}> */}
               <View style={{marginHorizontal: 20}}>

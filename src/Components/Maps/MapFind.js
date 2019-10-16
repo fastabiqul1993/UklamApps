@@ -6,7 +6,11 @@ import {
   StyleSheet,
   PermissionsAndroid,
 } from 'react-native';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  AnimatedRegion,
+} from 'react-native-maps';
 import geolocation from '@react-native-community/geolocation';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -21,14 +25,56 @@ class myMap extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
+      coordinate: new AnimatedRegion(
+        {
+          latitude: -7.756594,
+          longitude: 110.380572,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        {
+          latitude: -7.757968,
+          longitude: 110.383744,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        {
+          latitude: -7.764915,
+          longitude: 110.379007,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+      ),
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const duration = 500;
+
+    if (this.props.coordinate !== nextProps.coordinate) {
+      if (Platform.OS === 'android') {
+        if (this.marker) {
+          this.marker._component.animateMarkerToCoordinate(
+            nextProps.coordinate,
+            duration,
+          );
+        }
+      } else {
+        this.state.coordinate
+          .timing({
+            ...nextProps.coordinate,
+            duration,
+          })
+          .start();
+      }
+    }
   }
 
   render() {
     return (
       <View>
         <StatusBar translucent backgroundColor={'transparent'} />
-        <MapView
+        {/* <MapView
           style={styles.mapstyle}
           provider={PROVIDER_GOOGLE}
           showsCompass={true}
@@ -40,7 +86,15 @@ class myMap extends Component {
           maxZoomLevel={20}
           initialRegion={this.state.region}
           // region={this.state.region}
-        ></MapView>
+        ></MapView> */}
+        <MapView initialRegion={this.state.region} style={styles.mapstyle}>
+          <MapView.Marker.Animated
+            ref={marker => {
+              this.marker = marker;
+            }}
+            coordinate={this.state.coordinate}
+          />
+        </MapView>
       </View>
     );
   }

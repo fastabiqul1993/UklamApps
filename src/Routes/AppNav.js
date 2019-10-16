@@ -5,7 +5,7 @@ import Splash from '../Screens/Splash';
 
 import SignIn from '../Screens/AuthScreens/SignIn';
 import SignUp from '../Screens/AuthScreens/SignUp';
-import Destination from '../Screens/AppScreens/Destination';
+import Destination from '../Screens/AppScreens/Destination'
 import Profile from '../Screens/AppScreens/Profile';
 import Booking from '../Screens/AppScreens/Booking';
 import EditProfile from '../Components/Profile/EditProfile';
@@ -18,6 +18,7 @@ import PackageDestination from '../Screens/AppScreens/PackageDestination'; // se
 import SearchGuide from '../Screens/AppScreens/SearchGuide'; // search Guide in gmaps
 import ChatUser from '../Screens/AppScreens/ChatUser'; // chat with Guide
 import ChatHistory from '../Screens/AppScreens/ChatHistory'; //List History Chate dengan Guide
+
 
 // import Destination from '../Screens/AppScreens/Destination';
 
@@ -44,6 +45,7 @@ const ProfileStack = createStackNavigator(
     },
   },
 );
+
 
 const ChatStack = createStackNavigator(
   {
@@ -85,6 +87,13 @@ const AppStack = createStackNavigator(
     BookingScreen: {
       screen: Booking,
     },
+
+    DestinationScreen: {
+      screen: Destination,
+    },
+    PackageItemScreen: {
+      screen: Package,
+
     // ProfileScreen: {
     //   screen: Profile,
     // },
@@ -93,6 +102,7 @@ const AppStack = createStackNavigator(
     // },
     ChatScreen: {
       screen: ChatStack,
+
     },
   },
   {
@@ -113,12 +123,12 @@ const AppNavigator = createSwitchNavigator(
     App: AppStack,
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'Auth',
   },
 );
 
 const InitialNavigation = createSwitchNavigator({
-  splashScreen: Splash,
+  splashScreen: SearchGuide,
   AppNavigator: {screen: AppNavigator},
 });
 

@@ -32,7 +32,6 @@ class myPackage extends Component {
   //   );
   // };
 
-
   render() {
     return (
       <View>

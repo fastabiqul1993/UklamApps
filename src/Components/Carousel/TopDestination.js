@@ -24,7 +24,11 @@ class myCarousel extends Component {
               {/* {dataCategory.length > 0 ? (
                 dataCategory.map((res, index) => {
                   return ( */}
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  this.props.navigation.navigate('DestinationScreen');
+                }}>
                 <View style={styles.mainCard}>
                   <View>
                     <Image source={Logo} style={styles.image} />
@@ -53,7 +57,7 @@ class myCarousel extends Component {
                         fontWeight: 'bold',
                         // backgroundColor: '#2fa31a',
                       }}>
-                      Semarang
+                      Malang
                     </Text>
                   </View>
                 </View>
