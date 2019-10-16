@@ -3,6 +3,24 @@ import {StyleSheet, Image, View} from 'react-native';
 import {Container, Footer, FooterTab, Button, Icon, Text} from 'native-base';
 import {withNavigation, SafeAreaView} from 'react-navigation';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
+
+_logOut = async () => {
+  await AsyncStorage.clear();
+  // .then(async uid => {
+  //   firebase
+  //     .database()
+  //     .ref('user/' + uid)
+  //     .update({status: 'offline'});
+  //   await AsyncStorage.clear();
+  //   firebase.auth().signOut();
+  //   // Geolocation.stopObserving();
+  //   this.props.navigation.navigate('SigninScreen');
+  // })
+  // .catch(function(error) {
+  //   console.error(error);
+  // });
+};
 
 const MainFooter = props => {
   return (
@@ -68,7 +86,11 @@ const MainFooter = props => {
               }
             }
             vertical
-            onPress={() => props.navigation.navigate('ProfileScreen')}>
+            onPress={() => {
+              _logOut();
+            }}
+            // onPress={() => props.navigation.navigate('ProfileScreen')}
+          >
             <Icon name="person" style={{color: '#fb724a'}} />
             <Text style={{fontSize: 10, color: '#fb724a'}}>Profile</Text>
           </Button>
