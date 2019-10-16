@@ -16,6 +16,7 @@ class myDestination extends Component {
             width: '100%',
             height: '100%',
             resizeMode: 'stretch',
+            backgroundColor: '#f9791b',
           }}>
           <Header style={{marginTop: 10}} transparent>
             <Left>
@@ -53,7 +54,7 @@ class myDestination extends Component {
             </Text>
           </View>
           <View style={{position: 'absolute', bottom: 40}}>
-            <Carousel />
+            <Carousel navigation={this.props.navigation} />
           </View>
         </ImageBackground>
       </View>

@@ -1,5 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import {StyleSheet, View, Text, Image, StatusBar} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  StatusBar,
+  ImageBackground,
+} from 'react-native';
 import {
   Container,
   Content,
@@ -10,10 +17,14 @@ import {
   Button,
   Toast,
 } from 'native-base';
+import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Col, Row} from 'react-native-easy-grid';
 
-import Logo from '../../Assets/brands/logo.png';
+import {Login} from '../../Publics/Redux/Actions/auth';
+
+import Logo from '../../Assets/brands/icon1-01.png';
+import Bg from '../../Assets/img/bg.jpg';
 
 class SignIn extends Component {
   constructor(props) {
@@ -22,7 +33,9 @@ class SignIn extends Component {
       formData: {
         email: '',
         password: '',
+        role: 'user',
       },
+      token: '',
       showToast: false,
     };
   }
@@ -37,36 +50,29 @@ class SignIn extends Component {
   };
 
   handleSubmit = async () => {
-    const {formData} = this.state;
-    await firebase
-      .auth()
-      .signInWithEmailAndPassword(formData.email, formData.password)
-      .then(async res => {
-        // AsyncStorage.setItem('uid', res.user.uid);
-        await firebase
-          .database()
-          .ref('/user/' + res.user.uid)
-          .update({status: 'online'});
-        AsyncStorage.setItem('uid', res.user.uid);
-        AsyncStorage.setItem('name', res.user.username);
-        AsyncStorage.setItem('image', res.user.image);
-
-        Toast.show({
-          text: `Welcome ${res.user.username}`,
-          buttonText: 'Ok',
-          type: 'success',
-          position: 'bottom',
-          duration: 4000,
-          style: styles.toast,
-        });
-
-        this.props.navigation.navigate('HomeScreen');
+    // e.preventDefault();
+    await this.props
+      .dispatch(Login(this.state.formData))
+      .then(() => {
+        console.log('Data si props = ', this.props.auth.dataUser.token);
+        this.setState(
+          {
+            token: this.props.auth.dataUser.token,
+          },
+          () => {
+            AsyncStorage.setItem('token', this.state.token);
+            this.props.navigation.navigate('HomeScreen');
+          },
+        );
+      })
+      .catch(err => {
+        alert(err);
       });
   };
 
   componentDidMount = async () => {
-    await AsyncStorage.getItem('uid', (err, res) => {
-      console.log('Get AsynStorage UID =', res);
+    await AsyncStorage.getItem('token', (err, res) => {
+      console.log('Get AsynStorage Token =', res);
       if (res) {
         this.props.navigation.navigate('HomeScreen');
       }
@@ -76,57 +82,72 @@ class SignIn extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar translucent />
-        <Container style={styles.container}>
-          <Content showsVerticalScrollIndicator={false}>
-            <View style={styles.title}>
-              <Image source={Logo} style={styles.image} />
-            </View>
-            <Form style={styles.formSignin}>
-              <Item
-                floatingLabel
-                style={{height: 60, borderBottomColor: '#fb724a'}}>
-                <Label>Email</Label>
-                <Input
-                  keyboardType="email-address"
-                  autoCompleteType="email"
-                  onChangeText={text => this.handleChange('email', text)}
-                />
-              </Item>
-              <Item
-                floatingLabel
-                style={{height: 60, borderBottomColor: '#fb724a'}}>
-                <Label>Password</Label>
-                <Input
-                  secureTextEntry={true}
-                  onChangeText={text => this.handleChange('password', text)}
-                />
-              </Item>
-              <Button
-                full
-                dark
-                rounded
-                style={styles.btnSignin}
-                onPress={() => {
-                  this.props.navigation.navigate('HomeScreen');
-                }}
-                // onPress={this.handleSubmit}
-              >
-                <Text style={styles.textSignin}>Sign In</Text>
-              </Button>
-            </Form>
-            <Row style={styles.foot}>
-              <Col>
-                <Text
-                  style={styles.btnForgot}
-                  //   onPress={() => {
-                  //     this.props.navigation.navigate('SignupScreen');
-                  //   }}
-                >
-                  Sign Up
-                </Text>
-              </Col>
-              {/* <Col>
+        <StatusBar translucent backgroundColor={'transparent'} />
+        <Container>
+          <Content>
+            <ImageBackground
+              source={Bg}
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: '#fb724a',
+              }}>
+              {/* <Container style={styles.container}>
+            <Content showsVerticalScrollIndicator={false}> */}
+              <View style={{marginHorizontal: 20}}>
+                <View style={styles.title}>
+                  <Image source={Logo} style={styles.image} />
+                </View>
+                <Form>
+                  <Item
+                    floatingLabel
+                    style={{height: 60, borderBottomColor: '#fb724a'}}>
+                    <Label style={{color: 'white'}}>Email</Label>
+                    <Input
+                      style={{color: 'white'}}
+                      keyboardType="email-address"
+                      autoCompleteType="email"
+                      onChangeText={text => this.handleChange('email', text)}
+                    />
+                  </Item>
+                  <Item
+                    floatingLabel
+                    style={{
+                      height: 60,
+                      borderBottomColor: '#fb724a',
+                    }}>
+                    <Label style={{color: 'white'}}>Password</Label>
+                    <Input
+                      style={{color: 'white'}}
+                      secureTextEntry={true}
+                      onChangeText={text => this.handleChange('password', text)}
+                    />
+                  </Item>
+                  <Button
+                    full
+                    dark
+                    rounded
+                    style={styles.btnSignin}
+                    // onPress={() => {
+                    //   this.props.navigation.navigate('HomeScreen');
+                    // }}
+                    onPress={() => {
+                      this.handleSubmit();
+                    }}>
+                    <Text style={styles.textSignin}>Sign In</Text>
+                  </Button>
+                </Form>
+                <Row style={styles.foot}>
+                  <Col>
+                    <Text
+                      style={styles.btnForgot}
+                      onPress={() => {
+                        this.props.navigation.navigate('SignupScreen');
+                      }}>
+                      Sign Up
+                    </Text>
+                  </Col>
+                  {/* <Col>
                 <Text
                   style={styles.btnForgot}
                   onPress={() => {
@@ -135,7 +156,11 @@ class SignIn extends Component {
                   as Guest...
                 </Text>
               </Col> */}
-            </Row>
+                </Row>
+                {/* </Content>
+          </Container> */}
+              </View>
+            </ImageBackground>
           </Content>
         </Container>
       </Fragment>
@@ -143,7 +168,14 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = state => {
+  console.log('my state = ', state);
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(SignIn);
 
 let btnSignup = {
   textDecorationLine: 'underline',
@@ -189,5 +221,6 @@ const styles = StyleSheet.create({
   btnForgot: {
     ...btnSignup,
     textAlign: 'right',
+    color: 'white',
   },
 });

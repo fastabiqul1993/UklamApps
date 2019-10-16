@@ -10,36 +10,35 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Header, Button, Icon, Left, Right, Thumbnail} from 'native-base';
+import {
+  Header,
+  Button,
+  Icon,
+  Left,
+  Right,
+  Content,
+  Container,
+} from 'native-base';
 import {Grid, Row, Col} from 'react-native-easy-grid';
 
-import Carousel from '../../Components/Carousel/ChosePackage';
+// import Fab from '../../Components/Fab/FabPackage';
 
 import Logo from '../../Assets/img/dest1.jpg';
-import Logo1 from '../../Assets/img/bg2.jpg';
 
 class myPackage extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {};
-  // }
-
-  // Item = ({title}) => {
-  //   return (
-  //     <View style={styles.item}>
-  //       <Text style={styles.title}>{title}</Text>
-  //     </View>
-  //   );
-  // };
+  constructor() {
+    super();
+    this.state = {};
+  }
 
   render() {
     return (
       <View>
-        {/* <ImageBackground
+        <ImageBackground
           source={Logo}
           style={{
             width: '100%',
-            height: 370,
+            height: 200,
             backgroundColor: '#f9791b',
           }}>
           <Header transparent>
@@ -60,7 +59,7 @@ class myPackage extends Component {
             style={{
               backgroundColor: '#000',
               width: '100%',
-              height: '25%',
+              height: '40%',
               position: 'absolute',
               opacity: 0.4,
               bottom: 0,
@@ -69,17 +68,27 @@ class myPackage extends Component {
             }}>
             <Text></Text>
           </View>
+          {/* <View
+            style={{
+              position: 'absolute',
+              bottom: 20,
+              paddingHorizontal: 10,
+              right: 10,
+              zIndex: 20,
+            }}>
+            <Fab />
+          </View> */}
           <View style={{position: 'absolute', bottom: 35}}>
             <Text
               style={{
                 paddingHorizontal: 10,
-                paddingVertical: 10,
+                paddingVertical: 1,
                 fontSize: 30,
                 color: 'white',
                 fontWeight: 'bold',
                 // backgroundColor: '#2fa31a',
               }}>
-              Bromo
+              Gunung Bromo
             </Text>
           </View>
           <View style={{position: 'absolute', bottom: 14, marginLeft: 27}}>
@@ -110,29 +119,63 @@ class myPackage extends Component {
                 color: 'white',
               }}
             />
+          </View>
+        </ImageBackground>
+        <View style={{height: '69%', backgroundColor: '#f7f7f7'}}>
+          <FlatList
+            data={DATA}
+            renderItem={({item}) => (
+              <Fragment>
+                <ScrollView>
+                  {/* <View style={{marginBottom: 200, backgroundColor: '#f7f7f7'}}> */}
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => {
+                      this.props.navigation.navigate('chatScreen', item);
+                    }}>
+                    <View style={styles.item}>
+                      <Grid>
+                        <Col
+                          style={{
+                            width: '40%',
+                          }}>
+                          <View style={styles.image}>
+                            <Image source={Logo} style={styles.image} />
+                            <View
+                              style={{
+                                backgroundColor: '#000',
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                opacity: 0.2,
 
-          </View>
-        </ImageBackground>
-        {/* <View style={{height: '69%', backgroundColor: '#e6e6e6'}}> */}
-        <ImageBackground
-          source={Logo1}
-          style={{height: '69%', backgroundColor: '#e6e6e6'}}>
-          <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
-            <Text
-              style={{
-                fontSize: 20,
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                color: 'white',
-                fontWeight: 'bold',
-              }}>
-              Chose Tour Package
-            </Text>
-          </View>
-          <Carousel />
-        </ImageBackground>
+                                // borderRadius: 50,
+                              }}>
+                              <Text></Text>
+                            </View>
+                          </View>
+                        </Col>
+                        <Col>
+                          <Row>
+                            <View style={{paddingVertical: 4}}>
+                              <Text style={{fontSize: 20}}>{item.title}</Text>
+                            </View>
+                          </Row>
+                          <Row>
+                            <Text style={{color: 'gray'}}>{item.title}</Text>
+                          </Row>
+                        </Col>
+                      </Grid>
+                    </View>
+                  </TouchableOpacity>
+                  {/* </View> */}
+                </ScrollView>
+              </Fragment>
+            )}
+            keyExtractor={item => item.id}
+          />
+        </View>
       </View>
-      // </View>
     );
   }
 }
@@ -145,7 +188,7 @@ const styles = StyleSheet.create({
     // marginTop: Constants.statusBarHeight,
   },
   item: {
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#fff',
     height: 150,
     padding: 5,
     marginVertical: 5,
@@ -169,22 +212,22 @@ const styles = StyleSheet.create({
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    title: 'First package item',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    title: 'Sec package item',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    title: 'Third package item',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f21',
-    title: 'Second Item',
+    title: 'Four package item',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d12',
-    title: 'Third Item',
+    title: 'Five package item',
   },
 ];

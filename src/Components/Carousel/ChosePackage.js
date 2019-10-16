@@ -24,11 +24,7 @@ class myCarousel extends Component {
               {/* {dataCategory.length > 0 ? (
                 dataCategory.map((res, index) => {
                   return ( */}
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  this.props.navigation.navigate('PackageItemScreen');
-                }}>
+              <TouchableOpacity activeOpacity={0.8}>
                 <View style={styles.mainCard}>
                   <View>
                     <Image source={Logo} style={styles.image} />
@@ -36,11 +32,10 @@ class myCarousel extends Component {
                       style={{
                         backgroundColor: '#000',
                         width: '100%',
-                        height: '50%',
+                        height: '30%',
                         position: 'absolute',
-                        opacity: 0.2,
+                        opacity: 0.4,
                         bottom: 0,
-                        borderRadius: 20,
 
                         // borderRadius: 50,
                       }}>
@@ -57,7 +52,7 @@ class myCarousel extends Component {
                         fontWeight: 'bold',
                         // backgroundColor: '#2fa31a',
                       }}>
-                      Gunung Bromo
+                      Paket 1
                     </Text>
                   </View>
                 </View>
@@ -70,11 +65,10 @@ class myCarousel extends Component {
                       style={{
                         backgroundColor: '#000',
                         width: '100%',
-                        height: '50%',
+                        height: '30%',
                         position: 'absolute',
-                        opacity: 0.2,
+                        opacity: 0.4,
                         bottom: 0,
-                        borderRadius: 20,
 
                         // borderRadius: 50,
                       }}>
@@ -91,7 +85,7 @@ class myCarousel extends Component {
                         fontWeight: 'bold',
                         // backgroundColor: '#2fa31a',
                       }}>
-                      Pantai 3 warna
+                      Paket 2
                     </Text>
                   </View>
                 </View>
@@ -104,11 +98,10 @@ class myCarousel extends Component {
                       style={{
                         backgroundColor: '#000',
                         width: '100%',
-                        height: '50%',
+                        height: '30%',
                         position: 'absolute',
-                        opacity: 0.2,
+                        opacity: 0.4,
                         bottom: 0,
-                        borderRadius: 20,
 
                         // borderRadius: 50,
                       }}>
@@ -125,7 +118,7 @@ class myCarousel extends Component {
                         fontWeight: 'bold',
                         // backgroundColor: '#2fa31a',
                       }}>
-                      Pantai 3 warna
+                      Paket 3
                     </Text>
                   </View>
                 </View>
@@ -160,7 +153,7 @@ const styles = StyleSheet.create({
   },
   mainCard: {
     width: 150,
-    height: 170,
+    height: 190,
     margin: 5,
     backgroundColor: '#f9791b',
     borderRadius: 20,
