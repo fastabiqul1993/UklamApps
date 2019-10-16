@@ -17,14 +17,14 @@ class mySplash extends Component {
     const data = await this.splashLoading();
 
     await AsyncStorage.getItem('token', (err, res) => {
-      console.log('Get AsynStorage Token =', res);
+      // console.log('Get AsynStorage Token =', res);
       if (res) {
-        this.props.navigation.navigate('HomeScreen');
+        this.props.navigation.navigate('App');
       }
     });
 
     if (data !== null) {
-      this.props.navigation.navigate('AppNavigator');
+      this.props.navigation.navigate('Auth');
     }
   };
 
