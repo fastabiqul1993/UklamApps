@@ -63,29 +63,31 @@ class myHome extends Component {
               <View style={{flexDirection: 'row'}}>
                 <Text
                   style={{
-                    fontSize: 20,
-                    color: 'grey',
-                    paddingTop: 20,
+                    fontSize: 25,
+                    fontWeight: 'bold',
+                    // color: 'grey',
+                    paddingVertical: 10,
                     paddingHorizontal: 10,
                   }}>
                   Top Destination
                 </Text>
               </View>
-              <View style={{height: 250, marginBottom: 10}}>
-                <Carousel />
+              <View style={{height: 250}}>
+                <Carousel navigation={this.props.navigation} />
               </View>
               <View style={{flexDirection: 'row'}}>
                 <Text
                   style={{
-                    fontSize: 20,
-                    color: 'grey',
-                    paddingTop: 10,
+                    fontSize: 25,
+                    fontWeight: 'bold',
+                    // color: 'grey',
+                    paddingVertical: 10,
                     paddingHorizontal: 10,
                   }}>
-                  Top Destination
+                  Category
                 </Text>
               </View>
-              <View style={{height: 250, marginBottom: 10}}>
+              <View style={{height: 250}}>
                 <Carousel />
               </View>
             </ScrollView>
