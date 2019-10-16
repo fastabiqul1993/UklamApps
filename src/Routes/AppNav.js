@@ -5,7 +5,12 @@ import Splash from '../Screens/Splash';
 
 import SignIn from '../Screens/AuthScreens/SignIn';
 import SignUp from '../Screens/AuthScreens/SignUp';
+
+import Home from '../Screens/AppScreens/Home'; //Load Top city and more
 import Destination from '../Screens/AppScreens/Destination';
+// import Package from '../Screens/AppScreens/Package'; //selected City and load more tourist destination
+import PackageDestination from '../Screens/AppScreens/PackageDestination'; // selected Destination and chose package
+import ChatUser from '../Screens/AppScreens/ChatUser'; // chat with Guide
 import Profile from '../Screens/AppScreens/Profile';
 import Booking from '../Screens/AppScreens/Booking';
 import EditProfile from '../Components/Profile/EditProfile';
@@ -89,15 +94,11 @@ const AppStack = createStackNavigator(
     DestinationScreen: {
       screen: Destination,
     },
+
     PackageItemScreen: {
       screen: Package,
     },
-    // ProfileScreen: {
-    //   screen: Profile,
-    // },
-    // MyProfileScreen: {
-    //   screen: MyProfile,
-    // },
+
     ChatScreen: {
       screen: ChatStack,
     },
