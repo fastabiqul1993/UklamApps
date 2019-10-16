@@ -12,10 +12,17 @@ import {Badge, Icon} from 'native-base';
 
 import Logo from '../../Assets/img/exam.jpg';
 import Logo1 from '../../Assets/img/bg.jpg';
+import jogja from '../../Assets/Background/jogja.jpg';
+import malang from '../../Assets/Background/malang.jpg';
 
 class myCarousel extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   render() {
+    console.log('destination from home = ', this.props);
+    let {destination} = this.props;
     return (
       <>
         <View style={styles.container}>
@@ -27,11 +34,13 @@ class myCarousel extends Component {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => {
-                  this.props.navigation.navigate('DestinationScreen');
+                  this.props.navigation.navigate('DestinationScreen', {
+                    destination: destination,
+                  });
                 }}>
                 <View style={styles.mainCard}>
                   <View>
-                    <Image source={Logo} style={styles.image} />
+                    <Image source={malang} style={styles.image} />
                     <View
                       style={{
                         backgroundColor: '#000',
@@ -91,7 +100,7 @@ class myCarousel extends Component {
                         fontWeight: 'bold',
                         // backgroundColor: '#2fa31a',
                       }}>
-                      Semarang
+                      Bali
                     </Text>
                   </View>
                 </View>
@@ -99,7 +108,7 @@ class myCarousel extends Component {
               <TouchableOpacity activeOpacity={0.8}>
                 <View style={styles.mainCard}>
                   <View>
-                    <Image source={Logo} style={styles.image} />
+                    <Image source={jogja} style={styles.image} />
                     <View
                       style={{
                         backgroundColor: '#000',
@@ -125,7 +134,7 @@ class myCarousel extends Component {
                         fontWeight: 'bold',
                         // backgroundColor: '#2fa31a',
                       }}>
-                      Semarang
+                      Yogyakarta
                     </Text>
                   </View>
                 </View>
