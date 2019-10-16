@@ -19,15 +19,24 @@ import Logo from '../../Assets/img/dest1.jpg';
 import Logo1 from '../../Assets/img/bg2.jpg';
 
 class myPackage extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {};
+  // }
+
+  // Item = ({title}) => {
+  //   return (
+  //     <View style={styles.item}>
+  //       <Text style={styles.title}>{title}</Text>
+  //     </View>
+  //   );
+  // };
+
 
   render() {
     return (
       <View>
-        <ImageBackground
+        {/* <ImageBackground
           source={Logo}
           style={{
             width: '100%',
@@ -102,6 +111,7 @@ class myPackage extends Component {
                 color: 'white',
               }}
             />
+
           </View>
         </ImageBackground>
         {/* <View style={{height: '69%', backgroundColor: '#e6e6e6'}}> */}

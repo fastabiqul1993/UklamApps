@@ -13,6 +13,7 @@ import {Item, Input, Container, Content} from 'native-base';
 import Header from '../../Components/Navbars/Header.js';
 import Carousel from '../../Components/Carousel/TopDestination';
 import Logo from '../../Assets/img/bg.jpg';
+import FooterTab from '../../Components/Navbars/Footer';
 
 class myHome extends Component {
   state = {};
@@ -90,6 +91,7 @@ class myHome extends Component {
             </ScrollView>
           </Content>
         </Container>
+        <FooterTab />
       </View>
     );
   }
