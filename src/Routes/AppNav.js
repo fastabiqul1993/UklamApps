@@ -95,7 +95,7 @@ const AppNavigator = createSwitchNavigator(
 );
 
 const InitialNavigation = createSwitchNavigator({
-  splashScreen: SearchGuide,
+  splashScreen: SignUp,
   AppNavigator: {screen: AppNavigator},
 });
 
