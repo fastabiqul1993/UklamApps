@@ -8,20 +8,39 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import {Item, Input, Container, Content} from 'native-base';
+import {Item, Input, Container, Content, Icon} from 'native-base';
+import {connect} from 'react-redux';
+import {getPackages} from '../../Publics/Redux/Actions/packages';
 
 import Header from '../../Components/Navbars/Header.js';
 import Carousel from '../../Components/Carousel/TopDestination';
-import Logo from '../../Assets/img/bg.jpg';
+import Maps from '../../Components/Maps/MapFind';
+
+import Logo from '../../Assets/Background/comp2.jpg';
 import FooterTab from '../../Components/Navbars/Footer';
 
 class myHome extends Component {
-  state = {};
+  constructor() {
+    super();
+    this.state = {
+      userPackages: [],
+    };
+  }
+
+  componentDidMount = async () => {
+    await this.props.dispatch(getPackages()).then(() => {
+      console.log('state user package = ');
+      this.setState({
+        userPackages: this.props.packages.dataPackages,
+      });
+    });
+  };
   render() {
+    console.log('state packages = ', this.state.userPackages);
     return (
       <View style={styles.container}>
         <Container>
-          <Content style={{height: 145}}>
+          <Content style={{height: 145, backgroundColor: '#f5f5f5'}}>
             <StatusBar translucent backgroundColor={'transparent'} />
             <View style={{height: 150}}>
               <ImageBackground
@@ -61,6 +80,15 @@ class myHome extends Component {
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={{flexDirection: 'row'}}>
+                <Icon
+                  name="md-ribbon"
+                  style={{
+                    paddingVertical: 13,
+                    fontSize: 30,
+                    paddingLeft: 10,
+                    color: '#f9791b',
+                  }}
+                />
                 <Text
                   style={{
                     fontSize: 25,
@@ -73,9 +101,21 @@ class myHome extends Component {
                 </Text>
               </View>
               <View style={{height: 250}}>
-                <Carousel navigation={this.props.navigation} />
+                <Carousel
+                  navigation={this.props.navigation}
+                  destination={this.state.userPackages}
+                />
               </View>
               <View style={{flexDirection: 'row'}}>
+                <Icon
+                  name="md-search"
+                  style={{
+                    paddingVertical: 13,
+                    fontSize: 30,
+                    paddingLeft: 10,
+                    color: '#f9791b',
+                  }}
+                />
                 <Text
                   style={{
                     fontSize: 25,
@@ -84,11 +124,11 @@ class myHome extends Component {
                     paddingVertical: 10,
                     paddingHorizontal: 10,
                   }}>
-                  Category
+                  Find Guide
                 </Text>
               </View>
-              <View style={{height: 250}}>
-                <Carousel />
+              <View style={{height: 450}}>
+                <Maps />
               </View>
             </ScrollView>
           </Content>
@@ -99,7 +139,14 @@ class myHome extends Component {
   }
 }
 
-export default myHome;
+const mapStateToProps = state => {
+  console.log('my state = ', state);
+  return {
+    packages: state.packages,
+  };
+};
+
+export default connect(mapStateToProps)(myHome);
 
 const styles = StyleSheet.create({
   container: {

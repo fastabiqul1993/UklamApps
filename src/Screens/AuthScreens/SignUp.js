@@ -18,21 +18,25 @@ import {
   Toast,
 } from 'native-base';
 import {Col, Row} from 'react-native-easy-grid';
+import {connect} from 'react-redux';
+
 import AsyncStorage from '@react-native-community/async-storage';
+
+import {signUp} from '../../Publics/Redux/Actions/auth';
 
 import Logo from '../../Assets/brands/icon1-01.png';
 import Bg from '../../Assets/img/bg4.jpg';
 
-export default class Signin extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formData: {
-        username: '',
         email: '',
+        name: '',
         password: '',
-        image:
-          'https://www.shareicon.net/data/2016/09/01/822711_user_512x512.png',
+        // image:'https://www.shareicon.net/data/2016/09/01/822711_user_512x512.png',
+        role: 'user',
       },
       showToast: false,
     };
@@ -49,10 +53,10 @@ export default class Signin extends Component {
 
   handleSubmit = async () => {
     const {formData} = this.state;
-    if (formData.username.length < 6 || formData.email.length < 6) {
+    if (formData.name.length < 6 || formData.email.length < 6) {
       let errMsg = '';
-      if (formData.username.length < 6) {
-        errMsg = 'The Username must be 6 characters long or more';
+      if (formData.name.length < 6) {
+        errMsg = 'The name must be 6 characters long or more';
       } else if (formData.email.length < 6) {
         errMsg = 'The Email must be 6 characters long or more';
       }
@@ -65,23 +69,41 @@ export default class Signin extends Component {
         style: styles.toast,
       });
     } else {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(formData.email, formData.password)
-        .then(({user}) => {
-          const idUser = user.uid;
-          let userf = firebase.auth().currentUser;
-          userf.updateProfile({displayName: formData.username});
-          firebase
-            .database()
-            .ref('user/' + idUser)
-            .set({
-              username: formData.username,
-              image: formData.image,
-              id: idUser,
-              status: 'offline',
-            });
-          this.props.navigation.navigate('SignupScreen');
+      // await firebase
+      //   .auth()
+      //   .createUserWithEmailAndPassword(formData.email, formData.password)
+      //   .then(({user}) => {
+      //     const idUser = user.uid;
+      //     let userf = firebase.auth().currentUser;
+      //     userf.updateProfile({displayName: formData.name});
+      //     firebase
+      //       .database()
+      //       .ref('user/' + idUser)
+      //       .set({
+      //         name: formData.name,
+      //         image: formData.image,
+      //         id: idUser,
+      //         status: 'offline',
+      //       });
+      //     this.props.navigation.navigate('SignupScreen');
+      //   });
+      await this.props
+        .dispatch(signUp(this.state.formData))
+        .then(() => {
+          this.props.navigation.navigate('SigninScreen');
+          // console.log('Data si props = ', this.props.auth.dataUser.token);
+          // this.setState(
+          //   {
+          //     token: this.props.auth.dataUser.token,
+          //   },
+          //   () => {
+          //     AsyncStorage.setItem('token', this.state.token);
+          //     this.props.navigation.navigate('HomeScreen');
+          //   },
+          // );
+        })
+        .catch(err => {
+          alert(err);
         });
     }
   };
@@ -117,10 +139,10 @@ export default class Signin extends Component {
                   <Item
                     floatingLabel
                     style={{height: 60, borderBottomColor: '#fb724a'}}>
-                    <Label style={{color: 'white'}}>Username</Label>
+                    <Label style={{color: 'white'}}>name</Label>
                     <Input
                       style={{color: 'white'}}
-                      onChangeText={text => this.handleChange('username', text)}
+                      onChangeText={text => this.handleChange('name', text)}
                     />
                   </Item>
                   <Item
@@ -152,10 +174,9 @@ export default class Signin extends Component {
                     dark
                     rounded
                     style={styles.btnSignin}
-                    // onPress={() => {
-                    //   this.props.navigation.navigate('HomeScreen');
-                    // }}
-                  >
+                    onPress={() => {
+                      this.handleSubmit();
+                    }}>
                     <Text style={styles.textSignin}>Sign In</Text>
                   </Button>
                 </Form>
@@ -189,6 +210,15 @@ export default class Signin extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log('my state = ', state);
+  return {
+    auth: state.auth,
+  };
+};
+
+export default connect(mapStateToProps)(SignUp);
 
 let btnSignup = {
   textDecorationLine: 'underline',
