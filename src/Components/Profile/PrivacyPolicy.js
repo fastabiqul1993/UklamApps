@@ -4,8 +4,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 const PrivacyPolicy = () => {
   return (
-    <SafeAreaView style={{marginHorizontal: 10}}>
-      <Text style={{fontSize: 22, alignSelf: 'center'}}>PrivacyPolicy</Text>
+    <SafeAreaView style={{marginHorizontal: 10, marginTop: 40}}>
+      <Text style={{fontSize: 22, alignSelf: 'center'}}>Privacy Policy</Text>
       <ScrollView>
         <Text style={styles.tcP}>
           Welcome to our website. If you continue to browse and use this
