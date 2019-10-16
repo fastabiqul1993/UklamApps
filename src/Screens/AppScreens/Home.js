@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import {Item, Input, Container, Content, Icon} from 'native-base';
 import {connect} from 'react-redux';
-import {getPackages} from '../../Publics/Redux/Actions/packages';
 
-import Header from '../../Components/Navbars/Header.js';
+import {getPackages} from '../../Publics/Redux/Actions/packages';
+import {getGuides} from '../../Publics/Redux/Actions/guide';
+
 import Carousel from '../../Components/Carousel/TopDestination';
 import Maps from '../../Components/Maps/MapFind';
 
@@ -24,14 +25,17 @@ class myHome extends Component {
     super();
     this.state = {
       userPackages: [],
+      Guides: [],
     };
   }
 
   componentDidMount = async () => {
-    await this.props.dispatch(getPackages()).then(() => {
-      console.log('state user package = ');
+    await this.props.dispatch(getPackages());
+    await this.props.dispatch(getGuides()).then(() => {
+      console.log('state user package = ', this.props);
       this.setState({
         userPackages: this.props.packages.dataPackages,
+        Guides: this.props.guides.dataGuide,
       });
     });
   };
@@ -127,8 +131,8 @@ class myHome extends Component {
                   Find Guide
                 </Text>
               </View>
-              <View style={{height: 450}}>
-                <Maps />
+              <View style={{height: 495}}>
+                <Maps guides={this.state.Guides} />
               </View>
             </ScrollView>
           </Content>
@@ -143,6 +147,7 @@ const mapStateToProps = state => {
   console.log('my state = ', state);
   return {
     packages: state.packages,
+    guides: state.guides,
   };
 };
 
