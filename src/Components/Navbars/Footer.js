@@ -69,7 +69,8 @@ const MainFooter = props => {
               props.navigation.state.routeName === 'ChatScreen' && {
                 backgroundColor: '#E5E7E9',
               }
-            }>
+            }
+            onPress={() => props.navigation.navigate('ChatScreen')}>
             <Icon
               active
               name="message"

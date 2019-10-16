@@ -1,8 +1,4 @@
-import {
-  createAppContainer,
-  createSwitchNavigator,
-  TabNavigator,
-} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import Splash from '../Screens/Splash';
@@ -20,6 +16,13 @@ import EditProfile from '../Components/Profile/EditProfile';
 import Wishlist from '../Components/Profile/Wishlist';
 import Balance from '../Components/Profile/Balance';
 import PrivacyPolicy from '../Components/Profile/PrivacyPolicy';
+import Home from '../Screens/AppScreens/Home'; //Load Top city and more
+import Package from '../Screens/AppScreens/Package'; //selected City and load more tourist destination
+import PackageDestination from '../Screens/AppScreens/PackageDestination'; // selected DDestination and chose package
+import SearchGuide from '../Screens/AppScreens/SearchGuide'; // search Guide in gmaps
+import ChatUser from '../Screens/AppScreens/ChatUser'; // chat with Guide
+import ChatHistory from '../Screens/AppScreens/ChatHistory'; //List History Chate dengan Guide
+
 
 // import Destination from '../Screens/AppScreens/Destination';
 
@@ -35,7 +38,26 @@ const ProfileStack = createStackNavigator(
     PrivacyPolicyScreen: {screen: PrivacyPolicy},
   },
   {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0, // Set the animation duration time as 0 !!
+      },
+    }),
     initialRouteName: 'ProfileScreen',
+    defaultNavigationOptions: {
+      header: null,
+    },
+  },
+);
+
+
+const ChatStack = createStackNavigator(
+  {
+    ChatHistoryScreen: {screen: ChatHistory},
+    ChatScreen: {screen: ChatUser},
+  },
+  {
+    initialRouteName: 'ChatScreen',
     defaultNavigationOptions: {
       header: null,
     },
@@ -69,14 +91,22 @@ const AppStack = createStackNavigator(
     BookingScreen: {
       screen: Booking,
     },
+
     DestinationScreen: {
       screen: Destination,
     },
-    // PackageItemScreen: {
-    //   screen: Package,
-    // },
+
+    ChatScreen: {
+      screen: ChatStack,
+
+    },
   },
   {
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0, // Set the animation duration time as 0 !!
+      },
+    }),
     defaultNavigationOptions: {
       header: null,
     },
