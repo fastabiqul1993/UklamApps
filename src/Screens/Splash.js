@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Image, StatusBar} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import splash from '../../src/Assets/splash3.png';
 
@@ -15,8 +16,15 @@ class mySplash extends Component {
   componentDidMount = async () => {
     const data = await this.splashLoading();
 
+    await AsyncStorage.getItem('token', (err, res) => {
+      // console.log('Get AsynStorage Token =', res);
+      if (res) {
+        this.props.navigation.navigate('App');
+      }
+    });
+
     if (data !== null) {
-      this.props.navigation.navigate('AppNavigator');
+      this.props.navigation.navigate('Auth');
     }
   };
 

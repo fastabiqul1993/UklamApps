@@ -35,142 +35,167 @@ class Profile extends Component {
       user: [],
       newname: '',
       newemail: '',
-      profile: {},
+      profile: [],
     };
   }
   componentDidMount = async () => {
-    await this.props.dispatch(getUser('susi@gmail.com')).then(
-      this.setState({
-        user: this.props.user,
-        profile: this.props.user.profile,
-      }),
+    // await AsyncStorage.getItem('email').then(email => {
+    //   this.setState({email: email});
+    // });
+    // await this.props.dispatch(getUser('this.state.email')).then(
+    // await this.setState({
+    //   user: this.props.user,
+    //   profile: this.props.profile,
+    // });
+    // );
+    await this.setState({
+      user: this.props.navigation.auth.dataUser.guide,
+      profile: this.props.navigation.auth.dataUser.guide.profile,
+    });
+    console.log('profile', this.props);
+  };
+
+  handleLogout = async () => {
+    await AsyncStorage.clear().then(() =>
+      this.props.navigation.navigate('splashScreen'),
+    );
+    ToastAndroid.showWithGravity(
+      'Berhasil logout',
+      ToastAndroid.LONG,
+      ToastAndroid.CENTER,
     );
   };
+
   render() {
     const {photo, balance} = this.state.user;
     const {name, address, phone} = this.state.profile;
     return (
-      <SafeAreaView style={{flex: 1, marginHorizontal: 10}}>
+      <SafeAreaView style={{flex: 1}}>
         <StatusBar translucent backgroundColor="transparent" />
-        <Text
-          style={{
-            fontWeight: 'bold',
-            marginBottom: 20,
-            fontSize: 28,
-            marginTop: 30,
-          }}>
-          Profile
-        </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingVertical: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: 14,
-            overflow: 'hidden',
-          }}>
+        <View style={{marginHorizontal: 10}}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              marginBottom: 20,
+              fontSize: 28,
+              marginTop: 30,
+            }}>
+            Profile
+          </Text>
           <View
             style={{
-              height: 80,
-              width: 80,
-              borderRadius: 40,
+              flexDirection: 'row',
+              paddingVertical: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 14,
               overflow: 'hidden',
             }}>
-            <Image
-              resizeMode="cover"
+            <View
               style={{
                 height: 80,
                 width: 80,
                 borderRadius: 40,
+                overflow: 'hidden',
+              }}>
+              {/* <Image
+                resizeMode="cover"
+                style={{
+                  height: 80,
+                  width: 80,
+                  borderRadius: 40,
+                }}
+                source={{uri: `${photo}`}}
+              /> */}
+            </View>
+            <View
+              style={{
+                flexDirection: 'column',
+                flex: 1,
+                marginLeft: 10,
+              }}>
+              <Text style={{fontSize: 18}}>{name}</Text>
+              <Text>{phone}</Text>
+              <Text>{address}</Text>
+            </View>
+          </View>
+          <ScrollView>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('EditScreen', {
+                  user: this.state.user,
+                  profile: this.state.profile,
+                });
               }}
-              source={{uri: `${photo}`}}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: 'column',
-              flex: 1,
-              marginLeft: 10,
-            }}>
-            <Text style={{fontSize: 18}}>{this.state.profile.name}</Text>
-            <Text>{phone}</Text>
-            <Text>{address}</Text>
-          </View>
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 18, marginVertical: 10}}>
+                Edit Profile
+              </Text>
+              <Image source={require('../../Assets/Icon/arrow-right.png')} />
+            </TouchableOpacity>
+            <View style={{backgroundColor: 'grey', height: 1}}></View>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('WishlistScreen');
+              }}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 18, marginVertical: 10}}>Wishlist</Text>
+              <Image source={require('../../Assets/Icon/arrow-right.png')} />
+            </TouchableOpacity>
+            <View style={{backgroundColor: 'grey', height: 1}}></View>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('BalanceScreen', {
+                  user: this.state.user,
+                  profile: this.state.profile,
+                });
+              }}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 18, marginVertical: 10}}>Balance</Text>
+              <Image source={require('../../Assets/Icon/arrow-right.png')} />
+            </TouchableOpacity>
+            <View style={{backgroundColor: 'grey', height: 1}}></View>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('PrivacyPolicyScreen');
+              }}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 18, marginVertical: 10}}>
+                Privacy Policy
+              </Text>
+              <Image source={require('../../Assets/Icon/arrow-right.png')} />
+            </TouchableOpacity>
+            <View style={{backgroundColor: 'grey', height: 1}}></View>
+            <TouchableOpacity
+              onPress={this.handleLogout}
+              style={{
+                marginTop: 40,
+                backgroundColor: '#fb724a',
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingVertical: 8,
+              }}>
+              <Text style={{color: 'white', fontSize: 16}}> Logout</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
-        <ScrollView>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate('EditScreen', {
-                user: this.state.user,
-                profile: this.state.profile,
-              });
-            }}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={{fontSize: 18, marginVertical: 10}}>Edit Profile</Text>
-            <Image source={require('../../Assets/Icon/arrow-right.png')} />
-          </TouchableOpacity>
-          <View style={{backgroundColor: 'grey', height: 1}}></View>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate('WishlistScreen');
-            }}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={{fontSize: 18, marginVertical: 10}}>Wishlist</Text>
-            <Image source={require('../../Assets/Icon/arrow-right.png')} />
-          </TouchableOpacity>
-          <View style={{backgroundColor: 'grey', height: 1}}></View>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate('BalanceScreen', {
-                user: this.state.user,
-                profile: this.state.profile,
-              });
-            }}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={{fontSize: 18, marginVertical: 10}}>Balance</Text>
-            <Image source={require('../../Assets/Icon/arrow-right.png')} />
-          </TouchableOpacity>
-          <View style={{backgroundColor: 'grey', height: 1}}></View>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.navigate('PrivacyPolicyScreen');
-            }}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <Text style={{fontSize: 18, marginVertical: 10}}>
-              Privacy Policy
-            </Text>
-            <Image source={require('../../Assets/Icon/arrow-right.png')} />
-          </TouchableOpacity>
-          <View style={{backgroundColor: 'grey', height: 1}}></View>
-          <TouchableOpacity
-            style={{
-              marginTop: 40,
-              backgroundColor: '#fb724a',
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingVertical: 8,
-            }}>
-            <Text style={{color: 'white', fontSize: 16}}> Logout</Text>
-          </TouchableOpacity>
-        </ScrollView>
         <FooterTab />
       </SafeAreaView>
     );
@@ -179,11 +204,12 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.user,
+    user: state.auth.dataUser.profile,
+    profile: state.auth.dataUser.guide,
   };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect()(Profile);
 
 const styles = StyleSheet.create({
   container: {

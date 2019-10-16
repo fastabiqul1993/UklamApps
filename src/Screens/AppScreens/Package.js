@@ -10,10 +10,18 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Header, Button, Icon, Left, Right, Thumbnail} from 'native-base';
+import {
+  Header,
+  Button,
+  Icon,
+  Left,
+  Right,
+  Content,
+  Container,
+} from 'native-base';
 import {Grid, Row, Col} from 'react-native-easy-grid';
 
-import Carousel from '../../Components/Carousel/Destination';
+// import Fab from '../../Components/Fab/FabPackage';
 
 import Logo from '../../Assets/img/dest1.jpg';
 
@@ -60,6 +68,16 @@ class myPackage extends Component {
             }}>
             <Text></Text>
           </View>
+          {/* <View
+            style={{
+              position: 'absolute',
+              bottom: 20,
+              paddingHorizontal: 10,
+              right: 10,
+              zIndex: 20,
+            }}>
+            <Fab />
+          </View> */}
           <View style={{position: 'absolute', bottom: 35}}>
             <Text
               style={{
@@ -70,7 +88,7 @@ class myPackage extends Component {
                 fontWeight: 'bold',
                 // backgroundColor: '#2fa31a',
               }}>
-              Malang
+              Gunung Bromo
             </Text>
           </View>
           <View style={{position: 'absolute', bottom: 14, marginLeft: 27}}>
@@ -194,22 +212,22 @@ const styles = StyleSheet.create({
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    title: 'First package item',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    title: 'Sec package item',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    title: 'Third package item',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f21',
-    title: 'Second Item',
+    title: 'Four package item',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d12',
-    title: 'Third Item',
+    title: 'Five package item',
   },
 ];

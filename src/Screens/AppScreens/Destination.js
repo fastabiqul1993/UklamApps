@@ -54,7 +54,7 @@ class myDestination extends Component {
             </Text>
           </View>
           <View style={{position: 'absolute', bottom: 40}}>
-            <Carousel />
+            <Carousel navigation={this.props.navigation} />
           </View>
         </ImageBackground>
       </View>

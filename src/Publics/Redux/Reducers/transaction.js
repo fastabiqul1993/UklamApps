@@ -1,31 +1,31 @@
 const initialState = {
-  dataUser: [],
+  transactions: [],
   isLoading: false,
   isRejected: false,
   isFulfilled: false,
 };
 
-const Auth = (state = initialState, action) => {
+const transaction = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOGIN_USER_PENDING':
+    case 'GET_TRANSACTION_PENDING':
       return {
         ...state,
         isLoading: true,
         isRejected: false,
         isFulfilled: false,
       };
-    case 'LOGIN_USER_REJECTED':
+    case 'GET_TRANSACTION_REJECTED':
       return {
         ...state,
         isLoading: false,
         isRejected: true,
       };
-    case 'LOGIN_USER_FULFILLED':
+    case 'GET_TRANSACTION_FULFILLED':
       return {
         ...state,
         isLoading: false,
         isFulfilled: true,
-        dataUser: action.payload.data.response,
+        transactions: action.payload.data.response,
       };
 
     default:
@@ -33,4 +33,4 @@ const Auth = (state = initialState, action) => {
   }
 };
 
-export default Auth;
+export default transaction;
