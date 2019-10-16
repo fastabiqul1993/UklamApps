@@ -5,6 +5,7 @@ import Splash from '../Screens/Splash';
 
 import SignIn from '../Screens/AuthScreens/SignIn';
 import SignUp from '../Screens/AuthScreens/SignUp';
+
 import Home from '../Screens/AppScreens/Home'; //Load Top city and more
 import Destination from '../Screens/AppScreens/Destination';
 // import Package from '../Screens/AppScreens/Package'; //selected City and load more tourist destination
@@ -22,7 +23,6 @@ import PackageDestination from '../Screens/AppScreens/PackageDestination'; // se
 import SearchGuide from '../Screens/AppScreens/SearchGuide'; // search Guide in gmaps
 import ChatUser from '../Screens/AppScreens/ChatUser'; // chat with Guide
 import ChatHistory from '../Screens/AppScreens/ChatHistory'; //List History Chate dengan Guide
-
 
 // import Destination from '../Screens/AppScreens/Destination';
 
@@ -49,7 +49,6 @@ const ProfileStack = createStackNavigator(
     },
   },
 );
-
 
 const ChatStack = createStackNavigator(
   {
@@ -96,9 +95,12 @@ const AppStack = createStackNavigator(
       screen: Destination,
     },
 
+    PackageItemScreen: {
+      screen: Package,
+    },
+
     ChatScreen: {
       screen: ChatStack,
-
     },
   },
   {

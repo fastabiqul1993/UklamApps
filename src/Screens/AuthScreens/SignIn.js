@@ -37,6 +37,8 @@ class SignIn extends Component {
       },
       token: '',
       showToast: false,
+      email: '',
+      phone: '',
     };
   }
 
@@ -58,10 +60,15 @@ class SignIn extends Component {
         this.setState(
           {
             token: this.props.auth.dataUser.token,
+            email: this.props.auth.dataUser.guide.email,
+            phone: this.props.auth.dataUser.guide.profile.phone,
           },
           () => {
             AsyncStorage.setItem('token', this.state.token);
+            AsyncStorage.setItem('email', this.state.email);
+            AsyncStorage.setItem('phone', this.state.phone);
             this.props.navigation.navigate('HomeScreen');
+            console.warn(this.state.email, this.state.phone);
           },
         );
       })
@@ -169,7 +176,6 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('my state = ', state);
   return {
     auth: state.auth,
   };
