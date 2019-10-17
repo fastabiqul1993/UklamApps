@@ -24,10 +24,9 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {name: null, phone: null, address: null, UserId: null, token: null},
-      newname: '',
-      newphone: '',
-      newaddress: '',
+      name: this.props.navigation.getParam('profile').name,
+      phone: '',
+      address: '',
     };
   }
 
@@ -132,6 +131,7 @@ class EditProfile extends Component {
       <SafeAreaView style={styles.container}>
         <StatusBar translucent backgroundColor="transparent" />
         <ScrollView>
+          {console.warn(this.state.name)}
           <View
             style={{
               alignItems: 'center',
@@ -203,23 +203,24 @@ class EditProfile extends Component {
             {/* 
           <Text style={{fontSize: 18}}>Password</Text>
           <TextInput placeholder="Password" style={styles.elementform} /> */}
-            <View style={styles.bigseparator}></View>
           </View>
+          <TouchableOpacity
+            onPress={this.handleEdit}
+            style={{
+              marginTop: 20,
+              backgroundColor: '#fb724a',
+              borderRadius: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingVertical: 8,
+              height: 40,
+              width: 160,
+              right: 20,
+              marginLeft: 'auto',
+            }}>
+            <Text style={{color: 'white', fontSize: 16}}> Simpan</Text>
+          </TouchableOpacity>
         </ScrollView>
-        <TouchableOpacity
-          onPress={this.handleEdit}
-          style={{
-            marginTop: 20,
-            backgroundColor: '#fb724a',
-            borderTopRightRadius: 10,
-            borderTopLeftRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingVertical: 8,
-            height: 40,
-          }}>
-          <Text style={{color: 'white', fontSize: 16}}> Simpan</Text>
-        </TouchableOpacity>
       </SafeAreaView>
     );
   }
