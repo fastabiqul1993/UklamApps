@@ -10,5 +10,6 @@ const reducers = combineReducers({
   transaction,
   packages,
   guides,
+
 });
 export default reducers;
