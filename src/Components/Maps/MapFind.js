@@ -116,6 +116,7 @@ class myMap extends Component {
 
   render() {
     console.log('salam dari map = ', this.props);
+    let {destination} = this.props;
     return (
       <View>
         <StatusBar translucent backgroundColor={'transparent'} />
@@ -156,7 +157,10 @@ class myMap extends Component {
                   //       }
                   // }
                   onCalloutPress={() => {
-                    this.props.navigation.navigate('chatScreen', user);
+                    this.props.navigation.navigate('DestinationScreen', {
+                      user: user,
+                      destination: destination,
+                    });
                   }}>
                   {
                     //   user.id == uid ? (
