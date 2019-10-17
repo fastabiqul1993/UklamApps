@@ -7,6 +7,7 @@ import {
   ToastAndroid,
   ImageBackground,
 } from 'react-native';
+import {Input, Form, Item} from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Balance = props => {
@@ -76,6 +77,11 @@ const Balance = props => {
                 <Text>Current Balance</Text>
                 <Text style={{fontSize: 18}}>Rp. {balance}</Text>
               </View>
+              <Form>
+                <Item>
+                  <Input placeholder="Input Balance" />
+                </Item>
+              </Form>
               <TouchableOpacity
                 style={{
                   backgroundColor: '#f48023',
