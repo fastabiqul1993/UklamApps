@@ -24,7 +24,7 @@ import {Col, Row} from 'react-native-easy-grid';
 import {Login} from '../../Publics/Redux/Actions/auth';
 
 import Logo from '../../Assets/brands/icon1-01.png';
-import Bg from '../../Assets/img/bg.jpg';
+import Bg from '../../Assets/Background/bg.jpg';
 
 class SignIn extends Component {
   constructor(props) {
@@ -108,8 +108,12 @@ class SignIn extends Component {
                 <Form>
                   <Item
                     floatingLabel
-                    style={{height: 60, borderBottomColor: '#fb724a'}}>
-                    <Label style={{color: 'white'}}>Email</Label>
+                    style={{
+                      height: 60,
+                      borderBottomWidth: 2,
+                      borderBottomColor: '#fff',
+                    }}>
+                    <Label style={{color: 'white', fontSize: 20}}>Email</Label>
                     <Input
                       style={{color: 'white'}}
                       keyboardType="email-address"
@@ -121,9 +125,12 @@ class SignIn extends Component {
                     floatingLabel
                     style={{
                       height: 60,
-                      borderBottomColor: '#fb724a',
+                      borderBottomWidth: 2,
+                      borderBottomColor: '#fff',
                     }}>
-                    <Label style={{color: 'white'}}>Password</Label>
+                    <Label style={{color: 'white', fontSize: 20}}>
+                      Password
+                    </Label>
                     <Input
                       style={{color: 'white'}}
                       secureTextEntry={true}
@@ -194,14 +201,8 @@ const styles = StyleSheet.create({
     width: '70%',
     height: 200,
     marginTop: 20,
+    marginBottom: 25,
     resizeMode: 'contain',
-  },
-  containerHead: {
-    height: 0,
-  },
-  container: {
-    marginLeft: 20,
-    marginRight: 35,
   },
   title: {
     padding: 10,
@@ -210,11 +211,16 @@ const styles = StyleSheet.create({
 
   btnSignin: {
     marginTop: 50,
-    marginLeft: 15,
-    backgroundColor: '#fb724a',
+    backgroundColor: 'transparent',
+    opacity: 0.8,
+    borderColor: 'white',
+    borderWidth: 2,
   },
   textSignin: {
     color: 'white',
+    fontSize: 30,
+    fontFamily: 'Courier New',
+    // fontWeight: 'bold',
   },
   foot: {
     marginTop: 100,

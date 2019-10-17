@@ -138,8 +138,12 @@ class SignUp extends Component {
                 <Form>
                   <Item
                     floatingLabel
-                    style={{height: 60, borderBottomColor: '#fb724a'}}>
-                    <Label style={{color: 'white'}}>name</Label>
+                    style={{
+                      height: 60,
+                      borderBottomWidth: 2,
+                      borderBottomColor: '#fff',
+                    }}>
+                    <Label style={{color: 'white'}}>Name</Label>
                     <Input
                       style={{color: 'white'}}
                       onChangeText={text => this.handleChange('name', text)}
@@ -147,7 +151,11 @@ class SignUp extends Component {
                   </Item>
                   <Item
                     floatingLabel
-                    style={{height: 60, borderBottomColor: '#fb724a'}}>
+                    style={{
+                      height: 60,
+                      borderBottomWidth: 2,
+                      borderBottomColor: '#fff',
+                    }}>
                     <Label style={{color: 'white'}}>Email</Label>
                     <Input
                       style={{color: 'white'}}
@@ -160,7 +168,8 @@ class SignUp extends Component {
                     floatingLabel
                     style={{
                       height: 60,
-                      borderBottomColor: '#fb724a',
+                      borderBottomWidth: 2,
+                      borderBottomColor: '#fff',
                     }}>
                     <Label style={{color: 'white'}}>Password</Label>
                     <Input

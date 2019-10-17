@@ -6,12 +6,27 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  ImageBackground,
+  FlatList,
 } from 'react-native';
-import {Badge, Icon, Item} from 'native-base';
+import {Badge} from 'native-base';
 
 import Logo from '../../Assets/img/exam.jpg';
 import Logo1 from '../../Assets/img/bg.jpg';
+
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
 
 class myCarousel extends Component {
   state = {};
@@ -42,6 +57,26 @@ class myCarousel extends Component {
                             source={{uri: res.photo}}
                             style={styles.image}
                           />
+                          {/* <View
+                            style={{
+                              width: '100%',
+                              height: '70%',
+                              position: 'absolute',
+                              flexDirection: 'row',
+                            }}>
+                            <FlatList
+                              data={DATA}
+                              renderItem={({item}) => (
+                                <View style={{marginVertical: 3}}>
+                                  {}
+                                  <Badge primary>
+                                    <Text>{item.title}</Text>
+                                  </Badge>
+                                </View>
+                              )}
+                              keyExtractor={item => item.id}
+                            />
+                          </View> */}
                           <View
                             style={{
                               backgroundColor: '#000',
@@ -108,10 +143,6 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: '#f9791b',
     borderRadius: 20,
-  },
-  badge: {
-    backgroundColor: '#edbc5a',
-    position: 'absolute',
   },
   text: {
     fontSize: 15,
