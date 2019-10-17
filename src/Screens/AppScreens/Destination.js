@@ -23,7 +23,7 @@ class myDestination extends Component {
     let destination = this.props.navigation.state.params.destination;
     return (
       <View>
-        {guide !== null ? (
+        {guide !== undefined ? (
           <ImageBackground
             source={Logo}
             style={{
@@ -162,11 +162,7 @@ class myDestination extends Component {
               </Text>
             </View>
             <View style={{position: 'absolute', bottom: 40}}>
-              <Carousel
-                navigation={this.props.navigation}
-                data={destination}
-                guide={guide}
-              />
+              <Carousel navigation={this.props.navigation} data={destination} />
             </View>
           </ImageBackground>
         )}

@@ -6,15 +6,11 @@ import {
   View,
   Image,
   Text,
+  Alert,
 } from 'react-native';
 import {Thumbnail} from 'native-base';
-import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
-  AnimatedRegion,
-} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import geolocation from '@react-native-community/geolocation';
-import {identifier} from '@babel/types';
 import Carousel from '../Carousel/GuideCarousel';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -29,66 +25,21 @@ class myMap extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      coordinate: new AnimatedRegion({
-        latitude: -7.756594,
-        longitude: 110.380572,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }),
+
+      myCoordinate: '',
     };
   }
 
-  // componentDidMount = async () => {
-  //   // this.setState({uid: await AsyncStorage.getItem('uid')});
-
-  //   let hasLocationPermission = await PermissionsAndroid.check(
-  //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  //   );
-  //   if (!hasLocationPermission) {
-  //     console.log('tidak coy');
-  //     hasLocationPermission = await this.reqLocationPermission();
-  //   }
-  //   if (hasLocationPermission) {
-  //     geolocation.getCurrentPosition(
-  //       async position => {
-  //         let myPosition = {
-  //           latitude: position.coords.latitude,
-  //           longitude: position.coords.longitude,
-  //           latitudeDelta: 0.0922,
-  //           longitudeDelta: 0.0421,
-  //         };
-  //         // await firebase
-  //         //   .database()
-  //         //   .ref('user')
-  //         //   .child(this.state.uid)
-  //         //   .update({myPosition})
-  //         //   .then(() => {
-  //         //     this.setState({
-  //         //       region: {
-  //         //         ...this.state.region,
-  //         //         latitude: position.coords.latitude,
-  //         //         longitude: position.coords.longitude,
-  //         //         latitudeDelta: 0.0922,
-  //         //         longitudeDelta: 0.0421,
-  //         //       },
-  //         //     });
-  //         //     console.log('aaa = ', this.state.region);
-  //         //   });
-  //       },
-  //       err => {
-  //         console.log(err.code, err.message);
-  //       },
-  //       {
-  //         showLocationDialog: true,
-  //         distanceFilter: 1,
-  //         enableHighAccuracy: true,
-  //         fastestInterval: 5000,
-  //         timeout: 15000,
-  //         maximumAge: 10000,
-  //       },
-  //     );
-  //   }
-  // };
+  onRegionChange(region) {
+    this.setState({
+      myCoordinate: {
+        latitude: -7.89603,
+        longitude: 110.380572,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+    });
+  }
 
   reqLocationPermission = async () => {
     try {
@@ -114,12 +65,19 @@ class myMap extends Component {
     }
   };
 
+  handleClick = (lat, long) => {
+    this.setState({
+      region: {...this.state.region, latitude: lat, longitude: long},
+    });
+  };
+
   render() {
     console.log('salam dari map = ', this.props);
     let {destination} = this.props;
     return (
       <View>
         <StatusBar translucent backgroundColor={'transparent'} />
+        <Carousel guides={this.props.guides} click={this.handleClick} />
         <MapView
           style={styles.mapstyle}
           provider={PROVIDER_GOOGLE}
@@ -131,6 +89,7 @@ class myMap extends Component {
           minZoomLevel={0} // default => 0
           maxZoomLevel={20}
           initialRegion={this.state.region}
+          region={this.state.region}
           // region={this.state.region}
         >
           {this.props.guides.map((user, index) => {
@@ -157,10 +116,22 @@ class myMap extends Component {
                   //       }
                   // }
                   onCalloutPress={() => {
-                    this.props.navigation.navigate('DestinationScreen', {
-                      user: user,
-                      destination: destination,
-                    });
+                    user.status === 'available'
+                      ? this.props.navigation.navigate('DestinationScreen', {
+                          user: user,
+                          destination: destination,
+                        })
+                      : Alert.alert(
+                          'Guide Unavailabe',
+                          'Chose Another Guide...',
+                          [
+                            {
+                              text: 'OK',
+                              onPress: () => console.log('OK Pressed'),
+                            },
+                          ],
+                          {cancelable: false},
+                        );
                   }}>
                   {
                     //   user.id == uid ? (
@@ -195,7 +166,6 @@ class myMap extends Component {
             coordinate={this.state.coordinate}
           />
         </MapView> */}
-        <Carousel guides={this.props.guides} />
       </View>
     );
   }

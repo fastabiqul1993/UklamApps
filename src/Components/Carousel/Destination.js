@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {Badge, Icon, Item} from 'native-base';
+import {Card, CardItem} from 'native-base';
 
 import Logo from '../../Assets/img/exam.jpg';
 import Logo1 from '../../Assets/img/bg.jpg';
@@ -37,7 +37,7 @@ class myCarousel extends Component {
                         });
                       }}>
                       <View style={styles.mainCard} key={index}>
-                        <View>
+                        {/* <View>
                           <Image
                             source={{uri: res.photo}}
                             style={styles.image}
@@ -71,7 +71,18 @@ class myCarousel extends Component {
                             }}>
                             {res.name}
                           </Text>
-                        </View>
+                        </View> */}
+                        <Card>
+                          <CardItem>
+                            <Body>
+                              <Image
+                                source={{uri: 'Image URL'}}
+                                style={{height: 200, width: 200, flex: 1}}
+                              />
+                              <Text>//Your text here</Text>
+                            </Body>
+                          </CardItem>
+                        </Card>
                       </View>
                     </TouchableOpacity>
                   );
@@ -108,10 +119,6 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: '#f9791b',
     borderRadius: 20,
-  },
-  badge: {
-    backgroundColor: '#edbc5a',
-    position: 'absolute',
   },
   text: {
     fontSize: 15,
