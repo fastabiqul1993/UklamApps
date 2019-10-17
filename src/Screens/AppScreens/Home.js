@@ -55,6 +55,22 @@ class myHome extends Component {
                   resizeMode: 'stretch',
                   backgroundColor: '#f9791b',
                 }}>
+                <View
+                  style={{
+                    backgroundColor: '#000',
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    opacity: 0.2,
+                    bottom: 0,
+                    // borderRadius: 20,
+                    borderBottomLeftRadius: 20,
+                    borderBottomRightRadius: 20,
+
+                    // borderRadius: 50,
+                  }}>
+                  <Text></Text>
+                </View>
                 <Text
                   style={{
                     paddingHorizontal: 20,
@@ -132,7 +148,11 @@ class myHome extends Component {
                 </Text>
               </View>
               <View style={{height: 495}}>
-                <Maps guides={this.state.Guides} />
+                <Maps
+                  guides={this.state.Guides}
+                  navigation={this.props.navigation}
+                  destination={this.state.userPackages}
+                />
               </View>
             </ScrollView>
           </Content>

@@ -17,7 +17,9 @@ class myCarousel extends Component {
   state = {};
   render() {
     console.log('props in carousel = ', this.props.data);
+    console.log('props in guide = ', this.props.navigation.state.params.user);
     let destination = this.props.data;
+    let guide = this.props.navigation.state.params.user;
     return (
       <>
         <View style={styles.container}>
@@ -29,7 +31,10 @@ class myCarousel extends Component {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
-                        this.props.navigation.navigate('PackageItemScreen');
+                        this.props.navigation.navigate('BookingScreen', {
+                          destination: destination,
+                          guide: guide,
+                        });
                       }}>
                       <View style={styles.mainCard} key={index}>
                         <View>
