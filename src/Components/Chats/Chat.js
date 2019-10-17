@@ -15,7 +15,7 @@ import {Database} from '../../Configs/config';
 export default class Example extends Component {
   constructor(props) {
     super(props);
-    console.log('chat', this.props.data.package);
+    console.log('chat', this.props.data);
     // this.state = {
     // messages: [
     //   {
@@ -54,13 +54,12 @@ export default class Example extends Component {
       // userAvatar: AsyncStorage.getItem('user.photo'),
       // email: AsyncStorage.getItem('email'),
       person: {
-        email: this.props.data.package.guide,
-        name: this.props.data.package.guide,
+        email: this.props.data.guide,
+        name: this.props.data.guide,
       },
-      userName: this.props.data.user,
-      email: this.props.data.user,
-      userDecEmail: '',
-      decEmail: '',
+      userName: '',
+      email: '',
+
       // userAvatar:''
     };
   }
@@ -117,9 +116,12 @@ export default class Example extends Component {
   };
 
   componentDidMount = async () => {
+    await AsyncStorage.getItem('email').then(email => {
+      this.setState({email: email, userName: email});
+    });
     // const email = await AsyncStorage.getItem('email');
     // const userId = await AsyncStorage.getItem('userid');
-    // const userName = await AsyncStorage.getItem('user.name');
+    // const userName = await AsyncStorage.getItem('email');
     // const userAvatar = await AsyncStorage.getItem('user.photo');
     // this.setState({email, userId, userName, userAvatar});
     firebase

@@ -11,8 +11,9 @@ export const getTransactionHistory = email => {
 export const postOrder = (data, email) => {
   return {
     type: 'POST_ORDER',
-    payload: axios.get(
+    payload: axios.post(
       `http://54.235.224.136:5000/api/user/order/?email=${email}`,
+      data,
     ),
   };
 };
