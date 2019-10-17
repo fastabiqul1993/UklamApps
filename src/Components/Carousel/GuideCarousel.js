@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
+import {Rating, AirbnbRating} from 'react-native-ratings';
 import {Badge} from 'native-base';
 
 import Logo from '../../Assets/img/exam.jpg';
@@ -20,9 +21,14 @@ class myCarousel extends Component {
     super(props);
     this.state = {};
   }
+
+  ratingCompleted(rating) {
+    console.log('Rating is: ' + rating);
+  }
+
   render() {
     console.log('destination from mapfind = ', this.props);
-    let {guides} = this.props;
+    let {guides, click} = this.props;
     return (
       <>
         <View style={styles.container}>
@@ -38,7 +44,9 @@ class myCarousel extends Component {
                       //     destination: destination,
                       //   });
                       // }}
-                    >
+                      onPress={() =>
+                        click(res.location.latitude, res.location.longitude)
+                      }>
                       <View style={styles.mainCard}>
                         <View>
                           <Image
@@ -132,6 +140,19 @@ class myCarousel extends Component {
                               )}
                             </Fragment>
                           ))}
+                          <Rating
+                            style={{
+                              position: 'absolute',
+                              top: 0,
+                              right: 0,
+                            }}
+                            type="custom"
+                            ratingBackgroundColor="transparent"
+                            startingValue={res.rating / 1}
+                            ratingCount={5}
+                            imageSize={18}
+                            readonly={true}
+                          />
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -164,7 +185,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   mainCard: {
-    width: 240,
+    width: 290,
     height: 150,
     margin: 5,
     backgroundColor: '#f9791b',
