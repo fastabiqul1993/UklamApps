@@ -19,7 +19,7 @@ class mySplash extends Component {
     await AsyncStorage.getItem('token', (err, res) => {
       // console.log('Get AsynStorage Token =', res);
       if (res) {
-        this.props.navigation.navigate('App');
+        this.props.navigation.navigate('HomeScreen');
       }
     });
 
