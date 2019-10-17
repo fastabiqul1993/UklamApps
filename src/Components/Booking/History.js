@@ -10,7 +10,14 @@ import {
   ToastAndroid,
   FlatList,
 } from 'react-native';
-import {Container, Header, Content, Icon, Accordion} from 'native-base';
+import {
+  Container,
+  DatePicker,
+  Header,
+  Content,
+  Icon,
+  Accordion,
+} from 'native-base';
 import FooterTab from '../../Components/Navbars/Footer';
 import {getTransactionHistory} from '../../Publics/Redux/Actions/transaction';
 // import {getAllGuide} from '../../Publics/Redux/Actions/user';
@@ -45,27 +52,13 @@ class History extends Component {
 
   renderItem = ({item}) => {
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1, marginTop: 5}}>
         <TouchableOpacity
+          style={{marginHorizontal: 14}}
           onPress={() => this.props.navigation.navigate('ChatScreen', {item})}>
           <View>
             <View>
-              <View>
-                <Text numberOfLines={1} ellipsizeMode="tail">
-                  {item.orderDate}
-                </Text>
-                <Text numberOfLines={1} ellipsizeMode="tail">
-                  {item.package.guide}
-                </Text>
-                <Text numberOfLines={1} ellipsizeMode="tail">
-                  {item.package.name}
-                </Text>
-                <Text numberOfLines={1} ellipsizeMode="tail">
-                  {item.package.description}
-                </Text>
-                <Text numberOfLines={1} ellipsizeMode="tail">
-                  {item.package.price}
-                </Text>
+              <View style={{flexDirection: 'row', alignContent: 'center'}}>
                 <View
                   style={{
                     height: 60,
@@ -81,10 +74,27 @@ class History extends Component {
                     source={{uri: item.package.photo}}
                   />
                 </View>
+                <View style={{flexDirection: 'column'}}>
+                  <Text
+                    style={{fontSize: 16}}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {item.package.name}
+                  </Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    {item.orderDate}
+                  </Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    {item.package.guide}
+                  </Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    Rp. {item.package.price}
+                  </Text>
 
-                <Text numberOfLines={1} ellipsizeMode="tail">
-                  {item.package.status}
-                </Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    {item.package.status}
+                  </Text>
+                </View>
               </View>
               <View></View>
             </View>
