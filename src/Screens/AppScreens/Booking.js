@@ -9,7 +9,6 @@ import History from '../../Components/Booking/History';
 const Header = props => {
   return (
     <View style={{height: 80}}>
-      {console.log('booking destination and guide = ', props)}
       <ImageBackground
         source={require('../../Assets/Background/headerbg.jpg')}
         style={{width: '100%', height: '100%', overflow: 'hidden'}}>
