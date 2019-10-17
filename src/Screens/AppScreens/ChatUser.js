@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, View, StyleSheet, Text, ToastAndroid} from 'react-native';
 import {Container, Tab, Tabs} from 'native-base';
 import {Row, Grid} from 'react-native-easy-grid';
 
@@ -9,6 +9,7 @@ import Chat from '../../Components/Chats/Chat';
 const myChat = props => {
   return (
     <SafeAreaView style={styles.container}>
+      {console.log(props.navigation.getParam('item'))}
       <Grid>
         <HeaderChat />
         <Row
@@ -28,7 +29,7 @@ const myChat = props => {
               borderTopRightRadius: 50,
               height: '100%',
             }}>
-            <Chat />
+            <Chat data={props.navigation.getParam('item')} />
           </Container>
         </Row>
       </Grid>

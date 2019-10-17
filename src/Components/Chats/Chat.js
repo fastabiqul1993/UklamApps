@@ -15,6 +15,7 @@ import {Database} from '../../Configs/config';
 export default class Example extends Component {
   constructor(props) {
     super(props);
+    console.log('chat', this.props.data.package);
     // this.state = {
     // messages: [
     //   {
@@ -52,20 +53,33 @@ export default class Example extends Component {
       // userName: AsyncStorage.getItem('user.name'),
       // userAvatar: AsyncStorage.getItem('user.photo'),
       // email: AsyncStorage.getItem('email'),
-      person: {email: 'temannyakura@gmail.com', name: 'temannyakura'},
-      userName: 'kura',
-      email: 'kura@gmail.com',
+      person: {
+        email: this.props.data.package.guide,
+        name: this.props.data.package.guide,
+      },
+      userName: this.props.data.user,
+      email: this.props.data.user,
+      userDecEmail: '',
+      decEmail: '',
       // userAvatar:''
     };
   }
+
+  encodeUserEmail = userEmail => {
+    return userEmail.replace('.', ',');
+  };
+
+  decodeUserEmail = userEmail => {
+    return userEmail.replace(',', '.');
+  };
 
   onSend = async () => {
     if (this.state.message.length > 0) {
       let msgEmail = firebase
         .database()
         .ref('messages')
-        .child(this.state.userName)
-        .child(this.state.person.name)
+        .child(this.encodeUserEmail(this.state.email))
+        .child(this.encodeUserEmail(this.state.person.email))
         .push().key;
       let updates = {};
       let message = {
@@ -80,17 +94,17 @@ export default class Example extends Component {
       };
       updates[
         'messages/' +
-          this.state.userName +
+          this.encodeUserEmail(this.state.email) +
           '/' +
-          this.state.person.name +
+          this.encodeUserEmail(this.state.person.email) +
           '/' +
           msgEmail
       ] = message;
       updates[
         'messages/' +
-          this.state.person.name +
+          this.encodeUserEmail(this.state.person.email) +
           '/' +
-          this.state.userName +
+          this.encodeUserEmail(this.state.email) +
           '/' +
           msgEmail
       ] = message;
@@ -111,8 +125,8 @@ export default class Example extends Component {
     firebase
       .database()
       .ref('messages')
-      .child(this.state.userName)
-      .child(this.state.person.name)
+      .child(this.encodeUserEmail(this.state.email))
+      .child(this.encodeUserEmail(this.state.person.email))
       .on('child_added', val => {
         this.setState(previousState => ({
           messageList: GiftedChat.append(previousState.messageList, val.val()),
