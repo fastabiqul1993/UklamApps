@@ -19,7 +19,7 @@ const Header = () => {
             paddingHorizontal: 5,
             borderRadius: 5,
             overflow: 'hidden',
-            backgroundColor: 'rgba(253, 254, 254, 0.8)',
+            backgroundColor: 'rgba(253, 254, 254, 0.5)',
             height: 50,
             marginTop: 16,
             justifyContent: 'center',
