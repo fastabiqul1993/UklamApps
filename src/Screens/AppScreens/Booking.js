@@ -6,9 +6,10 @@ import {View, Text, ImageBackground} from 'react-native';
 import Activity from '../../Components/Booking/Activity';
 import History from '../../Components/Booking/History';
 
-const Header = () => {
+const Header = props => {
   return (
     <View style={{height: 80}}>
+      {console.log('booking destination and guide = ', props)}
       <ImageBackground
         source={require('../../Assets/Background/headerbg.jpg')}
         style={{width: '100%', height: '100%', overflow: 'hidden'}}>
@@ -19,7 +20,7 @@ const Header = () => {
             paddingHorizontal: 5,
             borderRadius: 5,
             overflow: 'hidden',
-            backgroundColor: 'rgba(253, 254, 254, 0.8)',
+            backgroundColor: 'rgba(253, 254, 254, 0.5)',
             height: 50,
             marginTop: 16,
             justifyContent: 'center',

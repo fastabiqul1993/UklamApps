@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
   ToastAndroid,
+  ImageBackground,
 } from 'react-native';
 import {
   Container,
@@ -39,20 +40,22 @@ class Profile extends Component {
     };
   }
   componentDidMount = async () => {
-    // await AsyncStorage.getItem('email').then(email => {
-    //   this.setState({email: email});
-    // });
-    // await this.props.dispatch(getUser('this.state.email')).then(
-    // await this.setState({
-    //   user: this.props.user,
-    //   profile: this.props.profile,
-    // });
-    // );
-    await this.setState({
-      user: this.props.navigation.auth.dataUser.guide,
-      profile: this.props.navigation.auth.dataUser.guide.profile,
+    await AsyncStorage.getItem('email').then(email => {
+      this.setState({email: email});
     });
-    console.log('profile', this.props);
+    await this.props.dispatch(getUser(this.state.email));
+    await new Promise(resolve => {
+      setTimeout(resolve, 1000);
+    }),
+      await this.setState({
+        user: this.props.user,
+        profile: this.props.user.profile,
+      });
+
+    // await this.setState({
+    //   user: this.props.auth.dataUser.guide,
+    //   profile: this.props.auth.dataUser.guide.profile,
+    // });
   };
 
   handleLogout = async () => {
@@ -72,53 +75,70 @@ class Profile extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar translucent backgroundColor="transparent" />
-        <View style={{marginHorizontal: 10}}>
+        <ImageBackground
+          source={require('../../Assets/Background/profile.jpg')}
+          resizeMode="cover"
+          style={{height: 300, width: '100%'}}>
           <Text
             style={{
               fontWeight: 'bold',
               marginBottom: 20,
               fontSize: 28,
               marginTop: 30,
+              marginLeft: 20,
             }}>
             Profile
           </Text>
           <View
             style={{
-              flexDirection: 'row',
-              paddingVertical: 5,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: 14,
-              overflow: 'hidden',
+              backgroundColor: 'rgba(253, 254, 254, 0.6)',
+              width: '60%',
+              borderRadius: 10,
+              alignSelf: 'center',
+              height: '60%',
             }}>
             <View
               style={{
-                height: 80,
-                width: 80,
-                borderRadius: 40,
+                flexDirection: 'row',
+                paddingVertical: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: 14,
                 overflow: 'hidden',
               }}>
-              {/* <Image
-                resizeMode="cover"
+              <View
                 style={{
                   height: 80,
                   width: 80,
                   borderRadius: 40,
-                }}
-                source={{uri: `${photo}`}}
-              /> */}
+                  overflow: 'hidden',
+                }}>
+                <Image
+                  resizeMode="cover"
+                  style={{
+                    height: 80,
+                    width: 80,
+                    borderRadius: 40,
+                  }}
+                  source={{uri: `${photo}`}}
+                />
+              </View>
             </View>
             <View
               style={{
                 flexDirection: 'column',
                 flex: 1,
                 marginLeft: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
               <Text style={{fontSize: 18}}>{name}</Text>
               <Text>{phone}</Text>
               <Text>{address}</Text>
             </View>
           </View>
+        </ImageBackground>
+        <View style={{marginHorizontal: 10}}>
           <ScrollView>
             <TouchableOpacity
               onPress={() => {
@@ -204,12 +224,12 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.dataUser.profile,
-    profile: state.auth.dataUser.guide,
+    user: state.user.user,
+    // profile: state.auth.dataUser.guide.profile,
   };
 };
 
-export default connect()(Profile);
+export default connect(mapStateToProps)(Profile);
 
 const styles = StyleSheet.create({
   container: {

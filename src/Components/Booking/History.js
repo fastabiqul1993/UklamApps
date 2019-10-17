@@ -6,14 +6,27 @@ import {
   Text,
   StatusBar,
   Image,
+  TouchableOpacity,
+  ToastAndroid,
+  FlatList,
 } from 'react-native';
-import {Container, Header, Content, Icon, Accordion} from 'native-base';
+import {
+  Container,
+  DatePicker,
+  Header,
+  Content,
+  Icon,
+  Accordion,
+} from 'native-base';
 import FooterTab from '../../Components/Navbars/Footer';
 import {getTransactionHistory} from '../../Publics/Redux/Actions/transaction';
+// import {getAllGuide} from '../../Publics/Redux/Actions/user';
 import AsyncStorage from '@react-native-community/async-storage';
 import {connect} from 'react-redux';
+import {withNavigation} from 'react-navigation';
 
 class History extends Component {
+  // console.log('test props', this.props);
   state = {
     email: '',
     transaction: [],
@@ -23,102 +36,85 @@ class History extends Component {
     await AsyncStorage.getItem('email').then(email => {
       this.setState({email: email});
     });
-    await this.props
-      .dispatch(getTransactionHistory(this.state.email))
-      .then(this.setState({transaction: this.props.transaction}))
-      .then(console.log(this.state.transaction));
+    await this.props.dispatch(getTransactionHistory(this.state.email));
+    // await this.props.dispatch(getAllGuide());
+    await new Promise(resolve => {
+      setTimeout(resolve, 1000);
+    });
+
+    await this.setState({
+      transaction: this.props.transaction,
+      // guide: this.props.guide,
+    });
+
+    // await console.log('trans', this.state.guide);
   };
 
-  _renderHeader(item, expanded) {
+  renderItem = ({item}) => {
     return (
-      <View
-        style={{
-          marginTop: 10,
-          marginHorizontal: 10,
-          borderRadius: 8,
-          flexDirection: 'row',
-          padding: 10,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          backgroundColor: '#fb724a',
-        }}>
-        <Text style={{fontWeight: '600', color: 'white'}}>
-          {item.package.name}
-        </Text>
-        {expanded ? (
-          <Icon style={{fontSize: 18}} name="remove-circle" />
-        ) : (
-          <Icon style={{fontSize: 18}} name="add-circle" />
-        )}
-      </View>
-    );
-  }
-  _renderContent(item) {
-    return (
-      <View
-        style={{
-          marginBottom: 10,
-          marginHorizontal: 10,
-          backgroundColor: '#FBEEE6',
-          flexDirection: 'row',
-          borderBottomLeftRadius: 8,
-          borderBottomRightRadius: 8,
-          paddingVertical: 15,
-          paddingHorizontal: 5,
-          justifyContent: 'space-between',
-          alignContent: 'center',
-          paddingHorizontal: 10,
-        }}>
-        <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              height: 60,
-              width: 60,
-              borderRadius: 10,
-              marginRight: 5,
-              overflow: 'hidden',
-              marginRight: 10,
-            }}>
-            <Image
-              style={{width: 60, height: 60}}
-              resizemode="center"
-              source={{uri: item.package.photo}}
-            />
-          </View>
+      <SafeAreaView style={{flex: 1, marginTop: 5}}>
+        <TouchableOpacity
+          style={{marginHorizontal: 14}}
+          onPress={() => this.props.navigation.navigate('ChatScreen', {item})}>
           <View>
-            <Text>{item.package.description}</Text>
-            <Text style={{fontSize: 12, color: 'grey'}}>{item.orderDate}</Text>
-            <Text style={{fontSize: 12, color: 'grey'}}>{item.guide}</Text>
-            <Text style={{fontSize: 12, color: 'grey'}}>
-              Rp. {item.package.price}
-            </Text>
-            <Text style={{fontSize: 12, color: 'grey'}}>{item.status}</Text>
+            <View>
+              <View style={{flexDirection: 'row', alignContent: 'center'}}>
+                <View
+                  style={{
+                    height: 60,
+                    width: 60,
+                    borderRadius: 10,
+                    marginRight: 5,
+                    overflow: 'hidden',
+                    marginRight: 10,
+                  }}>
+                  <Image
+                    style={{width: 60, height: 60}}
+                    resizemode="center"
+                    source={{uri: item.package.photo}}
+                  />
+                </View>
+                <View style={{flexDirection: 'column'}}>
+                  <Text
+                    style={{fontSize: 16}}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {item.package.name}
+                  </Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    {item.orderDate}
+                  </Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    {item.package.guide}
+                  </Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    Rp. {item.package.price}
+                  </Text>
+
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    {item.package.status}
+                  </Text>
+                </View>
+              </View>
+              <View></View>
+            </View>
           </View>
-        </View>
-        <View style={{justifyContent: ce}}>
-          <Icon
-            active
-            name="message"
-            type="MaterialIcons"
-            style={{color: '#fb724a'}}
-          />
-          <Text>Message {item.package.guide}</Text>
-        </View>
-      </View>
+        </TouchableOpacity>
+      </SafeAreaView>
     );
-  }
+  };
 
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar translucent backgroundColor="transparent" />
-        <Accordion
-          dataArray={this.state.transaction}
-          animation={true}
-          expanded={true}
-          renderHeader={this._renderHeader}
-          renderContent={this._renderContent}
+        {console.log(this.state.transaction)}
+        <FlatList
+          data={this.state.transaction}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => index.toString()}
         />
+
         <FooterTab />
       </SafeAreaView>
     );
@@ -129,6 +125,7 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     transaction: state.transaction.transactions,
+    // guide: state.user.guide,
   };
 };
-export default connect(mapStateToProps)(History);
+export default withNavigation(connect(mapStateToProps)(History));
