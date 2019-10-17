@@ -162,11 +162,7 @@ class myDestination extends Component {
               </Text>
             </View>
             <View style={{position: 'absolute', bottom: 40}}>
-              <Carousel
-                navigation={this.props.navigation}
-                data={destination}
-                guide={guide}
-              />
+              <Carousel navigation={this.props.navigation} data={destination} />
             </View>
           </ImageBackground>
         )}
