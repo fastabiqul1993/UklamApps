@@ -8,3 +8,11 @@ export const getTransactionHistory = email => {
     ),
   };
 };
+export const postOrder = (data, email) => {
+  return {
+    type: 'POST_ORDER',
+    payload: axios.get(
+      `http://54.235.224.136:5000/api/user/order/?email=${email}`,
+    ),
+  };
+};
