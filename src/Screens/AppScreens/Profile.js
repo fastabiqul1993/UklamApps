@@ -40,16 +40,23 @@ class Profile extends Component {
     };
   }
   componentDidMount = async () => {
-    await AsyncStorage.getItem('email').then(email => {
-      this.setState({email: email});
-    });
-    await this.props.dispatch(getUser(this.state.email));
-    await new Promise(resolve => {
-      setTimeout(resolve, 1000);
-    }),
-      await this.setState({
-        user: this.props.user,
-        profile: this.props.user.profile,
+    await AsyncStorage.getItem('email')
+      .then(email => {
+        this.setState({email: email});
+      })
+      .then(() => {
+        this.props.dispatch(getUser(email));
+      })
+      .then(() => {
+        new Promise(resolve => {
+          setTimeout(resolve, 1000);
+        });
+      })
+      .then(() => {
+        this.setState({
+          user: this.props.user,
+          profile: this.props.user.profile,
+        });
       });
 
     // await this.setState({
@@ -91,7 +98,7 @@ class Profile extends Component {
           </Text>
           <View
             style={{
-              backgroundColor: 'rgba(253, 254, 254, 0.6)',
+              backgroundColor: 'rgba(253, 254, 254, 0.8)',
               width: '60%',
               borderRadius: 10,
               alignSelf: 'center',

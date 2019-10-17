@@ -23,7 +23,7 @@ class myDestination extends Component {
     let destination = this.props.navigation.state.params.destination;
     return (
       <View>
-        {guide !== null ? (
+        {guide !== undefined ? (
           <ImageBackground
             source={Logo}
             style={{

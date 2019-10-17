@@ -31,8 +31,8 @@ class myCarousel extends Component {
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => {
-                        this.props.navigation.navigate('BookingScreen', {
-                          destination: destination,
+                        this.props.navigation.navigate('Activity', {
+                          destination: res,
                           guide: guide,
                         });
                       }}>

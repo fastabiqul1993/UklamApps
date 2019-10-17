@@ -27,7 +27,7 @@ export default class ChatHistory extends Component {
     uid: '',
   };
   componentDidMount = async () => {
-    const uid = await AsyncStorage.getItem('userid');
+    const userEmail = await AsyncStorage.getItem('email');
     this.setState({uid: uid, refreshing: true});
     await Database.ref('/user').on('child_added', data => {
       let person = data.val();
@@ -35,7 +35,7 @@ export default class ChatHistory extends Component {
         this.setState(prevData => {
           return {userList: [...prevData.userList, person]};
         });
-        this.setState({refreshing: false});
+        this.setState({refresshing: false});
       }
     });
   };
