@@ -15,10 +15,10 @@ import FooterTab from '../../Components/Navbars/Footer';
 import AsyncStorage from '@react-native-community/async-storage';
 import {postOrder} from '../../Publics/Redux/Actions/transaction';
 import {connect} from 'react-redux';
-import Logo from '../../Assets/img/dest1.jpg';
 
 class Activity extends Component {
   state = {
+    pickedorder: [],
     order: [],
     guide: [],
     guideprofile: [],
@@ -32,8 +32,9 @@ class Activity extends Component {
     await AsyncStorage.getItem('email').then(email => {
       this.setState({email: email});
     });
+    console.log('cari statusnya bro', this.props.navigation.state.params);
     await this.setState({
-      order: this.props.navigation.state.params.destination,
+      pickedorder: this.props.navigation.state.params.destination,
       guide: this.props.navigation.state.params.guide,
       guideprofile: this.props.navigation.state.params.guide.profile,
     });
@@ -52,14 +53,12 @@ class Activity extends Component {
         package: this.state.order._id,
         orderDate: this.state.chosenDate.toString().substr(4, 12),
       };
-      // var email = 'anton@gmail.com';
-      // await console.log(data, (email  email));
       await this.props
         .dispatch(postOrder(data, this.state.email))
         .then(async () => {
           await this._toastOrder();
           await console.log('hasil post order: ', this.props.orderReturn);
-          // await this.setState({order: this.props.orderReturn});
+          await this.setState({order: this.props.orderReturn});
         });
     } else {
       ToastAndroid.showWithGravityAndOffset(
@@ -84,152 +83,184 @@ class Activity extends Component {
   };
 
   handleAlert = () => {
-    Alert.alert(
-      'Perhatian',
-      'Apakah Anda Yakin untuk mengambil paket ini?',
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => this.handleOrder()},
-      ],
-      {cancelable: false},
-    );
+    console.warn(this.state.chosenDate);
+    if (this.state.chosenDate.length > 0) {
+      Alert.alert(
+        'Perhatian',
+        'Apakah Anda Yakin untuk mengambil paket ini?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: this.handleOrder},
+        ],
+        {cancelable: false},
+      );
+    } else {
+      ToastAndroid.showWithGravityAndOffset(
+        'Silahkan pilih Tanggal terlebih dulu',
+        ToastAndroid.LONG, //can be SHORT, LONG
+        ToastAndroid.CENTER, //can be TOP, BOTTON, CENTER
+        25, //xOffset
+        50, //yOffset
+      );
+    }
   };
 
   render() {
-    const {description, photo, price, type, _id} = this.state.order;
+    const {description, photo, price, type, _id} = this.state.pickedorder;
 
     return (
       <SafeAreaView style={{flex: 1}}>
-        {console.log('Activity', this.props.navigation.state.params)}
+        {console.warn('Activity', this.state.pickedorder)}
         <StatusBar translucent backgroundColor="transparent" />
-        <View
-          style={{
-            marginHorizontal: 30,
-            marginVertical: 10,
-            flex: 1,
-            borderRadius: 10,
-            borderWidth: 2,
-            borderColor: '#EBEDEF',
-            overflow: 'hidden',
-          }}>
-          <ImageBackground
-            source={{uri: photo}}
+        {this.state.pickedorder.name != null || undefined ? (
+          <View
             style={{
-              width: '100%',
-              height: 200,
-              backgroundColor: '#f9791b',
+              marginHorizontal: 30,
+              marginVertical: 10,
+              flex: 1,
+              borderRadius: 10,
+              borderWidth: 2,
+              borderColor: '#EBEDEF',
+              overflow: 'hidden',
             }}>
-            <View
+            <ImageBackground
+              source={{uri: photo}}
               style={{
-                backgroundColor: '#000',
                 width: '100%',
-                height: '40%',
-                position: 'absolute',
-                opacity: 0.4,
-                bottom: 0,
+                height: 200,
+                backgroundColor: '#f9791b',
               }}>
-              <Text></Text>
-            </View>
-            <View style={{position: 'absolute', bottom: 35}}>
-              <Text
+              <View
                 style={{
-                  paddingHorizontal: 10,
-                  paddingVertical: 1,
-                  fontSize: 30,
-                  color: 'white',
-                  fontWeight: 'bold',
-                  // backgroundColor: '#2fa31a',
+                  backgroundColor: '#000',
+                  width: '100%',
+                  height: '40%',
+                  position: 'absolute',
+                  opacity: 0.4,
+                  bottom: 0,
                 }}>
-                {this.state.order.name}
-                Nama
-              </Text>
-            </View>
-            <View style={{position: 'absolute', bottom: 14, marginLeft: 27}}>
-              <Text
+                <Text></Text>
+              </View>
+              <View style={{position: 'absolute', bottom: 35}}>
+                <Text
+                  style={{
+                    paddingHorizontal: 10,
+                    paddingVertical: 1,
+                    fontSize: 30,
+                    color: 'white',
+                    fontWeight: 'bold',
+                    // backgroundColor: '#2fa31a',
+                  }}>
+                  {this.state.pickedorder.name}
+                  Nama
+                </Text>
+              </View>
+              <View style={{position: 'absolute', bottom: 14, marginLeft: 27}}>
+                <Text
+                  style={{
+                    paddingHorizontal: 10,
+                    paddingVertical: 1,
+                    fontSize: 15,
+                    color: 'white',
+                    // backgroundColor: '#2fa31a',
+                  }}>
+                  {this.state.guideprofile.name}
+                  Nama Guide
+                </Text>
+              </View>
+              <View
                 style={{
-                  paddingHorizontal: 10,
-                  paddingVertical: 1,
-                  fontSize: 15,
-                  color: 'white',
-                  // backgroundColor: '#2fa31a',
+                  position: 'absolute',
+                  bottom: 15,
+                  marginLeft: 10,
                 }}>
-                {this.state.guideprofile.name}
-                Nama Guide
-              </Text>
-            </View>
-            <View
-              style={{
-                position: 'absolute',
-                bottom: 15,
-                marginLeft: 10,
-              }}>
-              <Icon
-                type="FontAwesome"
-                name="map-marker"
-                style={{
-                  fontSize: 20,
-                  paddingHorizontal: 10,
-                  paddingVertical: 1,
-                  color: 'white',
-                }}
+                <Icon
+                  type="FontAwesome"
+                  name="map-marker"
+                  style={{
+                    fontSize: 20,
+                    paddingHorizontal: 10,
+                    paddingVertical: 1,
+                    color: 'white',
+                  }}
+                />
+              </View>
+            </ImageBackground>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text>Pilih Tanggal : </Text>
+              <DatePicker
+                defaultDate={new Date()}
+                minimumDate={new Date(2019, 1, 1)}
+                maximumDate={new Date(2019, 12, 31)}
+                locale={'id'}
+                timeZoneOffsetInMinutes={undefined}
+                modalTransparent={false}
+                animationType={'fade'}
+                androidMode={'default'}
+                placeHolderText="Select date"
+                textStyle={{color: 'green'}}
+                placeHolderTextStyle={{color: '#d3d3d3'}}
+                onDateChange={this.setDate}
+                disabled={false}
               />
             </View>
-          </ImageBackground>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text>Pilih Tanggal : </Text>
-            <DatePicker
-              defaultDate={new Date()}
-              minimumDate={new Date(2019, 1, 1)}
-              maximumDate={new Date(2019, 12, 31)}
-              locale={'id'}
-              timeZoneOffsetInMinutes={undefined}
-              modalTransparent={false}
-              animationType={'fade'}
-              androidMode={'default'}
-              placeHolderText="Select date"
-              textStyle={{color: 'green'}}
-              placeHolderTextStyle={{color: '#d3d3d3'}}
-              onDateChange={this.setDate}
-              disabled={false}
-            />
-          </View>
 
-          <Text>
-            Deskripsi Paket: {'\n'}
-            {description}
-          </Text>
-          <Text>Harga Paket Rp. {price}</Text>
+            <Text>
+              Deskripsi Paket: {'\n'}
+              {description}
+            </Text>
+            <Text>
+              Harga Paket Rp.{' '}
+              {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+            </Text>
 
-          <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              style={{
-                marginTop: 20,
-                backgroundColor: '#fb724a',
-                marginHorizontal: 10,
-                paddingVertical: 10,
-                borderRadius: 10,
-                flex: 1,
-              }}
-              onPress={this.handleAlert}>
-              <Text style={{color: 'white', fontSize: 16, alignSelf: 'center'}}>
-                Book Now
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{backgroundColor: 'orange'}}
-              onPress={() =>
-                this.props.navigation.navigate('ChatScreen', {
-                  item: this.state.order,
-                })
-              }>
-              <Text>Chat Now</Text>
-            </TouchableOpacity>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={{
+                  marginTop: 20,
+                  backgroundColor: '#fb724a',
+                  marginHorizontal: 10,
+                  paddingVertical: 10,
+                  borderRadius: 10,
+                  flex: 1,
+                }}
+                onPress={this.handleAlert}>
+                <Text
+                  style={{color: 'white', fontSize: 16, alignSelf: 'center'}}>
+                  Book Now
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  marginTop: 20,
+                  backgroundColor: '#fb724a',
+                  marginHorizontal: 10,
+                  paddingVertical: 10,
+                  borderRadius: 10,
+                  flex: 1,
+                }}
+                onPress={() =>
+                  this.props.navigation.navigate('ChatScreen', {
+                    item: this.state.order,
+                  })
+                }>
+                <Text
+                  style={{color: 'white', fontSize: 16, alignSelf: 'center'}}>
+                  Chat Now
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        ) : (
+          <View
+            style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <Text>Silakan pilih paket terlebih dulu</Text>
+          </View>
+        )}
         <FooterTab />
       </SafeAreaView>
     );
