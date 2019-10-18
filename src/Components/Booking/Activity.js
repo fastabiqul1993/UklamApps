@@ -47,28 +47,20 @@ class Activity extends Component {
   setDate = newDate => {
     this.setState({chosenDate: newDate});
   };
+
   handleOrder = async () => {
-    if (this.state.chosenDate != null) {
-      var data = {
-        package: this.state.order._id,
-        orderDate: this.state.chosenDate.toString().substr(4, 12),
-      };
-      await this.props
-        .dispatch(postOrder(data, this.state.email))
-        .then(async () => {
-          await this._toastOrder();
-          await console.log('hasil post order: ', this.props.orderReturn);
-          await this.setState({order: this.props.orderReturn});
-        });
-    } else {
-      ToastAndroid.showWithGravityAndOffset(
-        'Silahkan Masukkan Tanggal',
-        ToastAndroid.LONG, //can be SHORT, LONG
-        ToastAndroid.BOTTOM, //can be TOP, BOTTON, CENTER
-        25, //xOffset
-        50, //yOffset
-      );
-    }
+    var data = {
+      package: this.state.pickedorder._id,
+      orderDate: this.state.chosenDate.toString().substr(4, 12),
+    };
+    console.log('lagi post order', data, this.state.email);
+    await this.props
+      .dispatch(postOrder(data, this.state.email))
+      .then(async () => {
+        await this._toastOrder();
+        await console.log('hasil post order: ', this.props.orderReturn);
+        await this.setState({order: this.props.orderReturn});
+      });
   };
 
   _toastOrder = () => {
@@ -84,7 +76,7 @@ class Activity extends Component {
 
   handleAlert = () => {
     console.warn(this.state.chosenDate);
-    if (this.state.chosenDate.length > 0) {
+    if (this.state.chosenDate != '') {
       Alert.alert(
         'Perhatian',
         'Apakah Anda Yakin untuk mengambil paket ini?',

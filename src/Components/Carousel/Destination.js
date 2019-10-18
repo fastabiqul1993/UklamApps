@@ -77,13 +77,14 @@ class myCarousel extends Component {
                               keyExtractor={item => item.id}
                             />
                           </View> */}
+
                           <View
                             style={{
                               backgroundColor: '#000',
                               width: '100%',
-                              height: '30%',
+                              height: '40%',
                               position: 'absolute',
-                              opacity: 0.2,
+                              opacity: 0.3,
                               bottom: 0,
                               // borderRadius: 20,
                               borderBottomRightRadius: 20,
@@ -96,16 +97,75 @@ class myCarousel extends Component {
                           <Text
                             style={{
                               position: 'absolute',
-                              bottom: 10,
+                              bottom: 33,
                               paddingHorizontal: 10,
                               paddingVertical: 1,
-                              fontSize: 25,
+                              fontSize: 21,
                               color: 'white',
                               fontWeight: 'bold',
                               // backgroundColor: '#2fa31a',
                             }}>
                             {res.name}
                           </Text>
+                          <Text
+                            style={{
+                              position: 'absolute',
+                              bottom: 9,
+                              paddingHorizontal: 10,
+                              paddingVertical: 1,
+                              fontSize: 15,
+                              color: 'white',
+                              fontWeight: 'bold',
+                              // backgroundColor: '#2fa31a',
+                            }}>
+                            Rp.
+                            {res.price
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            width: '100%',
+                            height: '20%',
+                            position: 'absolute',
+                            top: 10,
+                            flexDirection: 'row',
+                          }}>
+                          <View style={{marginVertical: 0}}>
+                            {res.type === 'tour' ? (
+                              <Badge primary style={{height: 30}}>
+                                <Text style={{fontSize: 20, color: 'white'}}>
+                                  {res.type}
+                                </Text>
+                              </Badge>
+                            ) : res.type === 'Artificial' ? (
+                              <Badge info style={{height: 30}}>
+                                <Text style={{fontSize: 20, color: 'white'}}>
+                                  {res.type}
+                                </Text>
+                              </Badge>
+                            ) : res.type === 'Nature' ? (
+                              <Badge success style={{height: 30}}>
+                                <Text style={{fontSize: 20, color: 'white'}}>
+                                  {res.type}
+                                </Text>
+                              </Badge>
+                            ) : res.type === 'Horror' ? (
+                              <Badge danger style={{height: 30}}>
+                                <Text style={{fontSize: 20, color: 'white'}}>
+                                  {res.type}
+                                </Text>
+                              </Badge>
+                            ) : (
+                              <Badge
+                                style={{height: 30, backgroundColor: 'black'}}>
+                                <Text style={{fontSize: 20, color: 'white'}}>
+                                  {res.type}
+                                </Text>
+                              </Badge>
+                            )}
+                          </View>
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -138,7 +198,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   mainCard: {
-    width: 250,
+    width: 280,
     height: 170,
     margin: 5,
     backgroundColor: '#f9791b',
