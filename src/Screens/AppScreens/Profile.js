@@ -57,7 +57,7 @@ class Profile extends Component {
         });
       });
 
-    console.warn('profile page', this.state.user, this.state.profile);
+    console.log('profile page', this.state.user, this.state.profile);
 
     // await this.setState({
     //   user: this.props.auth.dataUser.guide,
@@ -82,7 +82,7 @@ class Profile extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <StatusBar translucent backgroundColor="transparent" />
-        {this.state.profile.name != undefined ? (
+        {this.state.profile.name != '' ? (
           <ImageBackground
             source={require('../../Assets/Background/profile.jpg')}
             resizeMode="cover"
