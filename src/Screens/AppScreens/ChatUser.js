@@ -11,7 +11,7 @@ const myChat = props => {
     <SafeAreaView style={styles.container}>
       {console.log(props.navigation.getParam('item'))}
       <Grid>
-        <HeaderChat />
+        <HeaderChat data={props.navigation.getParam('item')} />
         <Row
           size={1}
           style={{

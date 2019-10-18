@@ -82,6 +82,7 @@ class SignIn extends Component {
       console.log('Get AsynStorage Token =', res);
       if (res) {
         this.props.navigation.navigate('HomeScreen');
+        console.warn('siapa', this.state.email, this.state.phone);
       }
     });
   };

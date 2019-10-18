@@ -77,11 +77,11 @@ const Balance = props => {
                 <Text>Current Balance</Text>
                 <Text style={{fontSize: 18}}>Rp. {balance}</Text>
               </View>
-              <Form>
+              {/* <Form>
                 <Item>
                   <Input placeholder="Input Balance" />
                 </Item>
-              </Form>
+              </Form> */}
               <TouchableOpacity
                 style={{
                   backgroundColor: '#f48023',

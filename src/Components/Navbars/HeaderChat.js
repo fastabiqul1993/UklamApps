@@ -12,12 +12,12 @@ import {
 } from 'native-base';
 
 const myHeader = props => {
-  // console.log('data item = ', props.data);
+  console.log('data item = ', props.data);
   // const data = props.data;
   return (
     <View>
       <Header
-        style={{backgroundColor: '#fb724a', height: 55}}
+        style={{backgroundColor: '#fb724a', height: 80, paddingTop: 20}}
         androidStatusBarColor="#fb724a"
         noShadow>
         <Left>
@@ -35,11 +35,11 @@ const myHeader = props => {
             <Thumbnail
               small
               source={{
-                uri: 'https://placeimg.com/140/140/any',
+                uri: props.data.package.photo,
               }}
             />
             <View style={{paddingHorizontal: 20}}>
-              <Title>aa</Title>
+              <Title>{props.data.package.guide}</Title>
             </View>
           </Body>
         </TouchableOpacity>

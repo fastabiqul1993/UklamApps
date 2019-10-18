@@ -70,7 +70,7 @@ const MainFooter = props => {
                 backgroundColor: '#E5E7E9',
               }
             }
-            onPress={() => props.navigation.navigate('ChatScreen')}>
+            onPress={() => props.navigation.navigate('ChatHistoryScreen')}>
             <Icon
               active
               name="message"
