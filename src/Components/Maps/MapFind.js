@@ -116,26 +116,26 @@ class myMap extends Component {
                   //       }
                   // }
                   onCalloutPress={() => {
-                    this.props.navigation.navigate('DestinationScreen', {
-                      user: user,
-                      destination: destination,
-                    });
-                    // user.status == 'available'
-                    //   ? this.props.navigation.navigate('DestinationScreen', {
-                    //       user: user,
-                    //       destination: destination,
-                    //     })
-                    //   : Alert.alert(
-                    //       'Guide Unavailabe',
-                    //       'Chose Another Guide...',
-                    //       [
-                    //         {
-                    //           text: 'OK',
-                    //           onPress: () => console.log('OK Pressed'),
-                    //         },
-                    //       ],
-                    //       {cancelable: false},
-                    //     );
+                    // this.props.navigation.navigate('DestinationScreen', {
+                    //   user: user,
+                    //   destination: destination,
+                    // });
+                    user.status == 'available'
+                      ? this.props.navigation.navigate('DestinationScreen', {
+                          user: user,
+                          destination: destination,
+                        })
+                      : Alert.alert(
+                          'Guide Unavailabe',
+                          'Chose Another Guide...',
+                          [
+                            {
+                              text: 'OK',
+                              onPress: () => console.log('OK Pressed'),
+                            },
+                          ],
+                          {cancelable: false},
+                        );
                   }}>
                   {
                     //   user.id == uid ? (

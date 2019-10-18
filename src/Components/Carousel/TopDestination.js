@@ -40,6 +40,46 @@ class myCarousel extends Component {
                 }}>
                 <View style={styles.mainCard}>
                   <View>
+                    <Image source={jogja} style={styles.image} />
+                    <View
+                      style={{
+                        backgroundColor: '#000',
+                        width: '100%',
+                        height: '35%',
+                        position: 'absolute',
+                        opacity: 0.2,
+                        bottom: 0,
+                        borderRadius: 20,
+
+                        // borderRadius: 50,
+                      }}>
+                      <Text></Text>
+                    </View>
+                    <Text
+                      style={{
+                        position: 'absolute',
+                        bottom: 35,
+                        paddingHorizontal: 10,
+                        paddingVertical: 1,
+                        fontSize: 25,
+                        color: 'white',
+                        fontWeight: 'bold',
+                        // backgroundColor: '#2fa31a',
+                      }}>
+                      Yogyakarta
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => {
+                  this.props.navigation.navigate('DestinationScreen', {
+                    destination: destination,
+                  });
+                }}>
+                <View style={styles.mainCard}>
+                  <View>
                     <Image source={malang} style={styles.image} />
                     <View
                       style={{
@@ -105,40 +145,7 @@ class myCarousel extends Component {
                   </View>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
-                <View style={styles.mainCard}>
-                  <View>
-                    <Image source={jogja} style={styles.image} />
-                    <View
-                      style={{
-                        backgroundColor: '#000',
-                        width: '100%',
-                        height: '35%',
-                        position: 'absolute',
-                        opacity: 0.2,
-                        bottom: 0,
-                        borderRadius: 20,
 
-                        // borderRadius: 50,
-                      }}>
-                      <Text></Text>
-                    </View>
-                    <Text
-                      style={{
-                        position: 'absolute',
-                        bottom: 35,
-                        paddingHorizontal: 10,
-                        paddingVertical: 1,
-                        fontSize: 25,
-                        color: 'white',
-                        fontWeight: 'bold',
-                        // backgroundColor: '#2fa31a',
-                      }}>
-                      Yogyakarta
-                    </Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
               {/* );
                 })
               ) : (

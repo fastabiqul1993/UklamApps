@@ -4,7 +4,7 @@ import {Header, Button, Icon, Left, Right} from 'native-base';
 
 import Carousel from '../../Components/Carousel/Destination';
 
-import Logo from '../../Assets/Background/background.jpg';
+import Bg from '../../Assets/Background/jogja.jpg';
 
 class myDestination extends Component {
   constructor() {
@@ -25,7 +25,7 @@ class myDestination extends Component {
       <View>
         {guide !== undefined ? (
           <ImageBackground
-            source={Logo}
+            source={Bg}
             style={{
               width: '100%',
               height: '100%',
@@ -110,7 +110,7 @@ class myDestination extends Component {
                   fontWeight: 'bold',
                   paddingHorizontal: 10,
                 }}>
-                Malang, East Java
+                Yogyakarta, Indonesia
               </Text>
             </View>
             <View style={{position: 'absolute', bottom: 40}}>
@@ -119,7 +119,7 @@ class myDestination extends Component {
           </ImageBackground>
         ) : (
           <ImageBackground
-            source={Logo}
+            source={Bg}
             style={{
               width: '100%',
               height: '100%',
@@ -158,7 +158,7 @@ class myDestination extends Component {
                   fontWeight: 'bold',
                   paddingHorizontal: 10,
                 }}>
-                Malang, East Java
+                Yogyakarta, Indonesia
               </Text>
             </View>
             <View style={{position: 'absolute', bottom: 40}}>
