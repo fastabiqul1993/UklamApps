@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image, View} from 'react-native';
+import {StyleSheet, Image, View, ToastAndroid} from 'react-native';
 import {Container, Footer, FooterTab, Button, Icon, Text} from 'native-base';
 import {withNavigation, SafeAreaView} from 'react-navigation';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+
+_toastpatch = () => {
+  //function to make Toast With Duration, Gravity And Offset
+  ToastAndroid.showWithGravityAndOffset(
+    'You Can Chat With Your Guide using Booking Menu',
+    ToastAndroid.LONG, //can be SHORT, LONG
+    ToastAndroid.BOTTOM, //can be TOP, BOTTON, CENTER
+    25, //xOffset
+    50, //yOffset
+  );
+};
 
 _logOut = async () => {
   await AsyncStorage.clear();
@@ -70,7 +81,7 @@ const MainFooter = props => {
                 backgroundColor: '#E5E7E9',
               }
             }
-            onPress={() => props.navigation.navigate('ChatHistoryScreen')}>
+            onPress={() => _toastpatch()}>
             <Icon
               active
               name="message"
