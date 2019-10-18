@@ -1,149 +1,181 @@
-import React, {Component} from 'react';
+// import React, {Component} from 'react';
+// import SafeAreaView from 'react-native-safe-area-view';
+// import {
+//   View,
+//   Text,
+//   TouchableOpacity,
+//   Image,
+//   StatusBar,
+//   FlatList,
+//   ActivityIndicator,
+//   StyleSheet,
+// } from 'react-native';
+// import AsyncStorage from '@react-native-community/async-storage';
+// // import Header from '../layouts/Header';
+// import {Database} from '../../Configs/config';
+
+// export default class ChatHistory extends Component {
+//   constructor(props) {
+//     super(props);
+//   }
+//   static navigationOptions = {
+//     header: null,
+//   };
+//   state = {
+//     userList: [],
+//     refreshing: false,
+//     uid: '',
+//     email: '',
+//   };
+//   componentDidMount = async () => {
+//     await AsyncStorage.getItem('email').then(email =>
+//       this.setState({email: email, refreshing: true}),
+//     );
+//     // this.setState({uid: uid, refreshing: true});
+//     await Database.ref('/messages')
+//       .child(this.encodeUserEmail(this.state.email))
+//       .on('child_added', data => {
+//         let person = data.val();
+//         if (person.id != uid) {
+//           this.setState(prevData => {
+//             return {userList: [...prevData.userList, person]};
+//           });
+//           this.setState({refresshing: false});
+//         }
+//       });
+//   };
+
+//   renderItem = ({item}) => {
+//     return (
+//       <SafeAreaView style={{flex: 1}}>
+//         <TouchableOpacity
+//           onPress={() => this.props.navigation.navigate('ChatUser', {item})}
+//           //   onLongPress={() =>
+//           //     this.props.navigation.navigate('FriendProfile', {item})
+//           //   }
+//         >
+//           <View style={styles.row}>
+//             <Image source={{uri: item.photo}} style={styles.pic} />
+//             <View>
+//               <View style={styles.nameContainer}>
+//                 <Text
+//                   style={styles.nameTxt}
+//                   numberOfLines={1}
+//                   ellipsizeMode="tail">
+//                   {item.name}
+//                 </Text>
+//                 {item.status == 'Online' ? (
+//                   <Text style={styles.statusol}>{item.status}</Text>
+//                 ) : (
+//                   <Text style={styles.status}>{item.status}</Text>
+//                 )}
+//               </View>
+//             </View>
+//           </View>
+//         </TouchableOpacity>
+//       </SafeAreaView>
+//     );
+//   };
+//   render() {
+//     return (
+//       <SafeAreaView>
+//         {/* <Header navigation={this.props.navigation} /> */}
+//         {this.state.refreshing === true ? (
+//           <ActivityIndicator
+//             size="large"
+//             color="#05A0E4"
+//             style={{marginTop: 150}}
+//           />
+//         ) : (
+//           <FlatList
+//             data={this.state.userList}
+//             renderItem={this.renderItem}
+//             keyExtractor={(item, index) => index.toString()}
+//           />
+//         )}
+//       </SafeAreaView>
+//     );
+//   }
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#ffffff',
+//   },
+//   row: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     borderColor: '#DCDCDC',
+//     backgroundColor: '#fff',
+//     borderBottomWidth: 1,
+//     padding: 10,
+//   },
+//   pic: {
+//     borderRadius: 30,
+//     width: 60,
+//     height: 60,
+//   },
+//   nameContainer: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     width: 280,
+//   },
+//   nameTxt: {
+//     marginLeft: 15,
+//     fontWeight: '600',
+//     color: '#222',
+//     fontSize: 18,
+//     width: 170,
+//   },
+//   status: {
+//     fontWeight: '200',
+//     color: '#ccc',
+//     fontSize: 13,
+//   },
+//   msgContainer: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     marginLeft: 15,
+//   },
+//   statusol: {
+//     fontWeight: '400',
+//     color: '#f48023',
+//     fontSize: 12,
+//     marginLeft: 15,
+//   },
+//   email: {
+//     fontWeight: '400',
+//     color: '#f48023',
+//     fontSize: 12,
+//   },
+// });
+
+import React from 'react';
 import SafeAreaView from 'react-native-safe-area-view';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StatusBar,
-  FlatList,
-  ActivityIndicator,
-  StyleSheet,
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-// import Header from '../layouts/Header';
-import {Database} from '../../Configs/config';
+import {View, Text} from 'react-native';
+import FooterTab from '../../Components/Navbars/Footer';
 
-export default class ChatHistory extends Component {
-  constructor(props) {
-    super(props);
-  }
-  static navigationOptions = {
-    header: null,
-  };
-  state = {
-    userList: [],
-    refreshing: false,
-    uid: '',
-  };
-  componentDidMount = async () => {
-    const userEmail = await AsyncStorage.getItem('email');
-    this.setState({uid: uid, refreshing: true});
-    await Database.ref('/user').on('child_added', data => {
-      let person = data.val();
-      if (person.id != uid) {
-        this.setState(prevData => {
-          return {userList: [...prevData.userList, person]};
-        });
-        this.setState({refresshing: false});
-      }
-    });
-  };
+const ChatHistory = () => {
+  return (
+    <SafeAreaView style={{flex: 1}}>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignContent: 'center',
+          flex: 1,
+          marginTop: 60,
+        }}>
+        <Text>
+          Sorry, This Page is Under Constrtuction {'\n'}You can message Guide
+          using Chat Button on Booking Screen
+        </Text>
+      </View>
+      <FooterTab />
+    </SafeAreaView>
+  );
+};
 
-  renderItem = ({item}) => {
-    return (
-      <SafeAreaView style={{flex: 1}}>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('ChatUser', {item})}
-          //   onLongPress={() =>
-          //     this.props.navigation.navigate('FriendProfile', {item})
-          //   }
-        >
-          <View style={styles.row}>
-            <Image source={{uri: item.photo}} style={styles.pic} />
-            <View>
-              <View style={styles.nameContainer}>
-                <Text
-                  style={styles.nameTxt}
-                  numberOfLines={1}
-                  ellipsizeMode="tail">
-                  {item.name}
-                </Text>
-                {item.status == 'Online' ? (
-                  <Text style={styles.statusol}>{item.status}</Text>
-                ) : (
-                  <Text style={styles.status}>{item.status}</Text>
-                )}
-              </View>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </SafeAreaView>
-    );
-  };
-  render() {
-    return (
-      <SafeAreaView>
-        {/* <Header navigation={this.props.navigation} /> */}
-        {this.state.refreshing === true ? (
-          <ActivityIndicator
-            size="large"
-            color="#05A0E4"
-            style={{marginTop: 150}}
-          />
-        ) : (
-          <FlatList
-            data={this.state.userList}
-            renderItem={this.renderItem}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        )}
-      </SafeAreaView>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#DCDCDC',
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    padding: 10,
-  },
-  pic: {
-    borderRadius: 30,
-    width: 60,
-    height: 60,
-  },
-  nameContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 280,
-  },
-  nameTxt: {
-    marginLeft: 15,
-    fontWeight: '600',
-    color: '#222',
-    fontSize: 18,
-    width: 170,
-  },
-  status: {
-    fontWeight: '200',
-    color: '#ccc',
-    fontSize: 13,
-  },
-  msgContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 15,
-  },
-  statusol: {
-    fontWeight: '400',
-    color: '#f48023',
-    fontSize: 12,
-    marginLeft: 15,
-  },
-  email: {
-    fontWeight: '400',
-    color: '#f48023',
-    fontSize: 12,
-  },
-});
+export default ChatHistory;
