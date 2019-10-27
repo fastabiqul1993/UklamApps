@@ -23,7 +23,9 @@
 
 ## Introduction
 
-Uklam is a Must Have App for Traveler who want to explore popular destination with professional guide on affordable price
+Uklam is a Must Have App for Traveler who want to explore popular destination with professional guide on affordable price.
+&nbsp;
+There is also Uklam Apps build for Guide, where Guide can register, add travel package, and many other, please check this [`Repo by Fastaman`](https://github.com/fastaman993/UklamAppsGuide)
 
 ## Features
 
@@ -45,7 +47,7 @@ Uklam is a Must Have App for Traveler who want to explore popular destination wi
 2. Type `git clone https://github.com/fikribasa/UklamApps`
 3. Open the folder and type `npm install` for install dependencies
 4. Before run this, you must run Uklam-backend
-5. Set key.js.example from firebase
+5. Rename config.js.example to config.js on folder /src/Configs using your own firebase application
 6. Add Google Cloud Platform api key on `/android/app/src/main/AndroidManifest.xml`
 7. Type `react-native run-android` for run this app.
 
@@ -55,10 +57,80 @@ Uklam is a Must Have App for Traveler who want to explore popular destination wi
     <span>
       <img src="./screenshoots/loading.png" width="250px" />
       &nbsp;&nbsp;
+       <img src="./screenshoots/login.png" width="250px" />
+      &nbsp;&nbsp;
+       <img src="./screenshoots/register.png" width="250px" />
+      &nbsp;&nbsp;
     </span>
   </p>
   
+  
+  <p align="center">
+    <span>
+      <img src="./screenshoots/home.png" width="250px" />
+      &nbsp;&nbsp;
+       <img src="./screenshoots/homemap.png" width="250px" />
+      &nbsp;&nbsp;
+       <img src="./screenshoots/guide.png" width="250px" />
+      &nbsp;&nbsp;
+    </span>
+  </p>
+  
+  <p align="center">
+    <span>
+      <img src="./screenshoots/activity.png" width="250px" />
+      &nbsp;&nbsp;
+       <img src="./screenshoots/history.png" width="250px" />
+      &nbsp;&nbsp;
+       <img src="./screenshoots/chat.png" width="250px" />
+      &nbsp;&nbsp;
+    </span>
+  </p>
+
+  <p align="center">
+    <span>
+      <img src="./screenshoots/profile.png" width="250px" />
+      &nbsp;&nbsp;
+       <img src="./screenshoots/edit-profile.png" width="250px" />
+      &nbsp;&nbsp;
+       <img src="./screenshoots/balance.png" width="250px" />
+      &nbsp;&nbsp;
+    </span>
+  </p>
+
 ## Release APK
+
 <a href="https://drive.google.com/file/d/1y9RGvpgDUG2NGo7tGkGW3HRaWi7oK08Y/view?usp=sharing">
   Download here
 </a>
+
+## Contributors
+
+<table border="0">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/fastaman993">
+        <img width="110" src="https://avatars1.githubusercontent.com/fastaman993" alt="Adhy F. Khoirot"><br/>
+          <sub><b>Adhy F. Khoirot</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/mahendragalih26">
+        <img width="110" src="https://avatars1.githubusercontent.com/mahendragalih26" alt="Galih Mahendra W"><br/>
+          <sub><b>Galih Mahendra W</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/Gimindika">
+        <img width="110" src="https://avatars1.githubusercontent.com/Gimindika" alt="Gerrit Indika Mulya"><br/>
+          <sub><b>Gerrit Indika Mulya</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/fikribasa">
+        <img width="110" src="https://avatars1.githubusercontent.com/fikribasa" alt="M Fikri Basa"><br/>
+          <sub><b>M Fikri Basa</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
