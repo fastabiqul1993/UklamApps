@@ -1,0 +1,16 @@
+import firebase from 'firebase';
+var firebaseConfig = {
+  apiKey: 'Your API Key',
+  authDomain: 'your authdomain',
+  databaseURL: 'your database URL',
+  projectId: 'your projectID',
+  storageBucket: 'Your Storage Bucket',
+  messagingSenderId: 'Your Storage messagingSenderId',
+  appId: 'Your appId',
+  measurementId: 'your measurementId',
+};
+// Initialize Firebase
+let app = firebase.initializeApp(firebaseConfig);
+
+export const Database = app.database();
+export const Auth = app.auth();
