@@ -41,7 +41,7 @@ uklam is a guide search application and also a tour package when you arrive at y
 1. Open your terminal or command prompt
 2. Type `git clone https://github.com/fastaman993/UklamApps.git`
 3. Open the folder and type `npm install` for install dependencies
-4. Before run this, you must run Uklam-backend, installation Docs [`here`](https://github.com/Gimindika/uklam-express-backend)
+4. Before run this, you must run Uklam-backend, installation Docs [`here`](https://github.com/Gimindika/uklam-express-backend/blob/master/README.md)
 5. Type react-native run-android for run this app. Make sure your device is connected with debugging mode.
 
 ## Screenshots
