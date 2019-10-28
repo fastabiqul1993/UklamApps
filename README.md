@@ -88,6 +88,12 @@ uklam is a guide search application and also a tour package when you arrive at y
       </a>
     </td>
     <td align="center">
+      <a href="https://github.com/fastaman993">
+        <img width="110" src="https://avatars2.githubusercontent.com/u/54013498?s=460&v=4" alt="Galih Mahendra W"><br/>
+          <sub><b>Adhy F. Khoirot</b></sub>
+      </a>
+    </td>
+    <td align="center">
       <a href="https://github.com/Gimindika">
         <img width="110" src="https://avatars1.githubusercontent.com/Gimindika" alt="Gerrit Indika Mulya"><br/>
           <sub><b>Gerrit Indika Mulya</b></sub>
@@ -99,5 +105,6 @@ uklam is a guide search application and also a tour package when you arrive at y
           <sub><b>Galih Mahendra W</b></sub>
       </a>
     </td>
+    
   </tr>
 </table>
