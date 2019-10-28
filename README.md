@@ -1,6 +1,6 @@
-<h1 align='center'>Uklam</h1><br/><br /><br />
+<h1 align='center'>Uklam</h1><br/>
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/35838970/67644937-271a8b00-f958-11e9-90f8-769d378309e6.png" width="500px"/>
+  <img src="https://user-images.githubusercontent.com/35838970/67644937-271a8b00-f958-11e9-90f8-769d378309e6.png" width="300px"/>
 </p>
 <br/><br /><br />
 
@@ -42,7 +42,7 @@ uklam is a guide search application and also a tour package when you arrive at y
 2. Type `git clone https://github.com/fastaman993/UklamApps.git`
 3. Open the folder and type `npm install` for install dependencies
 4. Before run this, you must run Uklam-backend
-5......
+5. ...
 
 ## Screenshots
   <p align="center">
